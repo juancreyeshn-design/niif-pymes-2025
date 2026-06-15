@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Módulo 1 — Introducción a las NIIF para PYMES</title>
+<style>
+:root{--gold:#F4A811;--dark:#1B2638;--bg:#F5F7FA;--activo:#0D6B8C;--pasivo:#C0392B;--patrim:#1A8A4A;--ingreso:#E67E22;--gasto:#8E44AD;--white:#fff;--muted:#65758b;--line:#dfe6ef;--ok:#1A8A4A;--bad:#C0392B;--shadow:0 14px 32px rgba(27,38,56,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--dark);font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55}button,input,select{font:inherit}button{min-height:48px;cursor:pointer;border:0;border-radius:14px;padding:12px 18px;background:var(--dark);color:#fff;transition:.22s ease;touch-action:manipulation}button:hover,button:focus{transform:translateY(-1px);box-shadow:0 8px 18px rgba(27,38,56,.2);outline:3px solid rgba(244,168,17,.32)}button.secondary{background:#fff;color:var(--dark);border:1px solid var(--line)}button.gold{background:var(--gold);color:var(--dark);font-weight:800}button.ghost{background:transparent;color:var(--dark);border:1px solid var(--line)}.wrap{max-width:1180px;margin:auto;padding:18px}.hero{background:linear-gradient(135deg,var(--dark),#2d405f);color:#fff;padding:26px;border-radius:28px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;background:rgba(244,168,17,.18);border-radius:50%;animation:float 7s ease-in-out infinite}.badge{display:inline-block;background:var(--gold);color:var(--dark);font-weight:800;padding:8px 14px;border-radius:999px;margin-bottom:14px}.hero h1{font-size:clamp(1.7rem,4vw,3rem);line-height:1.1;margin:4px 0}.hero p{font-size:clamp(1rem,2vw,1.25rem);opacity:.92;margin:8px 0 0}.tabs{position:sticky;top:0;z-index:10;background:rgba(245,247,250,.96);backdrop-filter:blur(10px);padding:12px 0;margin:14px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.tab-btn{background:#fff;color:var(--dark);border:1px solid var(--line);font-weight:800}.tab-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}.panel{display:none;animation:fade .28s ease}.panel.active{display:block}.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 8px 20px rgba(27,38,56,.06)}.card h2,.card h3{margin-top:0;line-height:1.18}.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 12px;background:#edf2f7;color:var(--dark);font-weight:700;margin:4px}.ref{font-size:.92rem;color:var(--muted);border-left:4px solid var(--gold);padding-left:10px;margin-top:12px}.map{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.node{padding:16px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);min-height:125px;transition:.25s}.node:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(13,107,140,.12)}.node b{display:block;color:var(--activo);margin-bottom:6px}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare .col{border-radius:20px;padding:16px;border-top:8px solid var(--gold);background:#fff}.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px}.step{flex:1;min-width:170px;padding:14px;border-radius:18px;background:#fff7e4;border:1px solid #f7d48a}.arrow{display:flex;align-items:center;font-weight:900;color:var(--gold)}.sim-box{background:#f8fafc;border-radius:20px;padding:16px;border:1px dashed var(--line)}.choice-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.feedback{margin-top:12px;padding:14px;border-radius:16px;display:none}.feedback.ok{display:block;background:#e8f6ee;color:#0f6032}.feedback.bad{display:block;background:#fdebea;color:#8b2118}.journal{width:100%;border-collapse:collapse;margin-top:10px;overflow:hidden;border-radius:14px}.journal th,.journal td,.summary th,.summary td{border:1px solid var(--line);padding:10px;text-align:left}.journal th,.summary th{background:#eef3f8}.account-activo{color:var(--activo);font-weight:800}.account-gasto{color:var(--gasto);font-weight:800}.quiz-card{min-height:260px}.progress{height:12px;border-radius:999px;background:#e3eaf2;overflow:hidden;margin:12px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--ingreso));transition:.35s}.options{display:grid;gap:10px;margin-top:12px}.option{background:#fff;color:var(--dark);border:1px solid var(--line);text-align:left}.option.correct{border-color:var(--ok);background:#e8f6ee}.option.wrong{border-color:var(--bad);background:#fdebea}.drag-area{display:grid;grid-template-columns:1fr 1fr;gap:14px}.bank,.dropzone{min-height:180px;border:2px dashed var(--line);border-radius:20px;padding:12px;background:#f8fafc}.drag-card{user-select:none;touch-action:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0;box-shadow:0 4px 10px rgba(27,38,56,.08);font-weight:700}.drag-card.dragging{opacity:.7;transform:scale(1.03)}.dropzone[data-type="fund"]{border-color:var(--activo)}.dropzone[data-type="mejora"]{border-color:var(--patrim)}.summary{width:100%;border-collapse:collapse;background:#fff;border-radius:20px;overflow:hidden}.summary td:first-child{font-weight:800}.iconbox{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.icon{padding:14px;border-radius:18px;background:#f8fafc;text-align:center;border:1px solid var(--line)}.icon span{font-size:1.7rem;display:block}.confetti{position:fixed;top:-10px;width:10px;height:18px;background:var(--gold);z-index:1000;animation:fall 1.8s linear forwards}.footer{text-align:center;color:#fff;background:var(--dark);padding:22px;margin-top:22px;border-radius:24px}.tiny{font-size:.9rem;color:var(--muted)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes float{50%{transform:translateY(18px)}}@keyframes fall{to{transform:translateY(110vh) rotate(600deg);opacity:.1}}
+@media(max-width:820px){.tabs{grid-template-columns:1fr 1fr;position:static}.grid.two,.grid.three,.map,.compare,.iconbox,.drag-area{grid-template-columns:1fr}.wrap{padding:12px}.card{padding:16px}.arrow{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <span class="badge">NIIF PYMES 2025 · Introducción</span>
+  <h1>Módulo 1 — Introducción a las NIIF para PYMES</h1>
+  <p>Secciones 1, 2 y 10 · Conceptos Fundamentales</p>
+</header>
+<nav class="tabs" aria-label="Pestañas del módulo">
+  <button class="tab-btn active" data-tab="concepto">📘 Concepto</button>
+  <button class="tab-btn" data-tab="politicas">⚙️ Políticas contables</button>
+  <button class="tab-btn" data-tab="juego">🎯 Mini-juego</button>
+  <button class="tab-btn" data-tab="referencia">📋 Referencia rápida</button>
+</nav>
+
+<section id="concepto" class="panel active">
+  <div class="grid two">
+    <article class="card">
+      <h2>¿Qué son las NIIF para PYMES?</h2>
+      <p>La NIIF para PYMES es una norma de información financiera diseñada para estados financieros de propósito general de entidades con fines de lucro que no tienen obligación pública de rendir cuentas.</p>
+      <p><b>Criterio central:</b> no depende únicamente del tamaño, ventas o número de empleados. La clave es si la entidad tiene o no obligación pública de rendir cuentas y si publica estados financieros de propósito general para usuarios externos.</p>
+      <div class="ref">Referencia: Sección 1, párrafos 1.1 al 1.5.</div>
+    </article>
+    <article class="card">
+      <h2>¿Quiénes las aplican?</h2>
+      <div class="pill">✅ Sin obligación pública de rendir cuentas</div>
+      <div class="pill">✅ Publican EEFF de propósito general</div>
+      <div class="pill">👥 Usuarios externos: acreedores, inversionistas, calificadoras</div>
+      <p>Una entidad con instrumentos negociados en mercado público o que mantiene activos fiduciarios para un amplio grupo de terceros como negocio principal no debe afirmar cumplimiento con NIIF para PYMES.</p>
+      <div class="ref">Referencia: 1.2, 1.3 y 1.5.</div>
+    </article>
+  </div>
+  <article class="card">
+    <h2>Mapa visual de principios fundamentales</h2>
+    <div class="map">
+      <div class="node"><b>Devengo</b>Reconoce activos, pasivos, patrimonio, ingresos y gastos cuando cumplen definiciones y criterios; no solo cuando se cobra o paga.</div>
+      <div class="node"><b>Negocio en marcha</b>La entidad prepara EEFF suponiendo continuidad operativa, salvo intención o necesidad de liquidar o cesar operaciones.</div>
+      <div class="node"><b>Relevancia y representación fiel</b>La información útil influye en decisiones y representa la esencia económica de los fenómenos.</div>
+      <div class="node"><b>Comparabilidad y comprensibilidad</b>Permiten analizar periodos, entidades y tendencias sin ocultar información material.</div>
+    </div>
+    <div class="ref">Referencia: Sección 2, párrafos 2.1 al 2.52; devengo reubicado en presentación conforme a Sección 3, 3.16A.</div>
+  </article>
+  <article class="card">
+    <h2>Comparativo visual</h2>
+    <div class="compare">
+      <div class="col"><h3>NIIF para PYMES</h3><p>Norma independiente, simplificada, enfocada en usuarios externos sin acceso a información a la medida.</p></div>
+      <div class="col"><h3>NIIF completas</h3><p>Marco amplio para entidades con obligación pública de rendir cuentas o mercados de capital.</p></div>
+      <div class="col"><h3>Normas locales</h3><p>Pueden responder a fines regulatorios, fiscales o jurisdiccionales; no sustituyen automáticamente una declaración NIIF para PYMES.</p></div>
+    </div>
+  </article>
+</section>
+
+<section id="politicas" class="panel">
+  <div class="grid two">
+    <article class="card">
+      <h2>Políticas contables</h2>
+      <p>Son principios, bases, convenciones, reglas y prácticas específicas aplicadas al preparar y presentar estados financieros.</p>
+      <div class="flow">
+        <div class="step"><b>1. Norma específica</b><br>Aplicar la sección correspondiente.</div><div class="arrow">→</div>
+        <div class="step"><b>2. Guía similar</b><br>Usar requerimientos NIIF PYMES para asuntos similares.</div><div class="arrow">→</div>
+        <div class="step"><b>3. Sección 2</b><br>Definiciones, reconocimiento, medición y principios generales.</div><div class="arrow">→</div>
+        <div class="step"><b>4. NIIF completas</b><br>Puede considerarse si no contradice la jerarquía anterior.</div>
+      </div>
+      <div class="ref">Referencia: Sección 10, párrafos 10.2 al 10.6.</div>
+    </article>
+    <article class="card">
+      <h2>Cambios contables</h2>
+      <p><b>Cambio de política:</b> se permite si lo exige la norma o si produce información más relevante y fiable. Generalmente se aplica retrospectivamente.</p>
+      <p><b>Cambio de estimación:</b> surge por nueva información o nuevos desarrollos. Se aplica prospectivamente.</p>
+      <p><b>Error:</b> omisión o inexactitud de periodos anteriores por no usar información fiable disponible. Se corrige retrospectivamente cuando es material.</p>
+      <div class="ref">Referencia: Sección 10, políticas, estimaciones y errores.</div>
+    </article>
+  </div>
+  <article class="card">
+    <h2>Simulación: Distribuidora El Progreso, S.A.</h2>
+    <div class="sim-box" id="simText">
+      En 2025, la empresa descubre que en 2024 registró depreciación de equipo por L. 12,000, pero el cálculo correcto era L. 32,000. La información estaba disponible cuando se autorizaron los estados financieros de 2024.
+    </div>
+    <h3>Decida el tratamiento</h3>
+    <div class="choice-row">
+      <button class="sim-choice" data-answer="error">Error de período anterior</button>
+      <button class="sim-choice" data-answer="politica">Cambio de política</button>
+      <button class="sim-choice" data-answer="estimacion">Cambio de estimación</button>
+    </div>
+    <div id="simFeedback" class="feedback"></div>
+    <table class="journal" aria-label="Asiento de corrección">
+      <thead><tr><th>Cuenta</th><th>Debe</th><th>Haber</th><th>Efecto</th></tr></thead>
+      <tbody>
+        <tr><td class="account-gasto">3103 Resultados acumulados</td><td>L. 20,000</td><td></td><td>Disminuye patrimonio inicial por corrección retrospectiva.</td></tr>
+        <tr><td class="account-activo">1201.02 Depreciación acumulada PPE</td><td></td><td>L. 20,000</td><td>Reduce el importe en libros de PPE.</td></tr>
+      </tbody>
+    </table>
+    <p class="tiny">Asiento didáctico antes de efectos fiscales. Catálogo usado: Resultados acumulados y Depreciación acumulada PPE.</p>
+  </article>
+</section>
+
+<section id="juego" class="panel">
+  <article class="card quiz-card">
+    <h2>Mini-juego NIIF PYMES</h2>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <p id="qCount" class="tiny">Pregunta 1 de 10</p>
+    <h3 id="question"></h3>
+    <div id="options" class="options"></div>
+    <div id="feedback" class="feedback"></div>
+    <div class="choice-row"><button id="next" class="gold" style="display:none">Siguiente</button><button id="restart" class="secondary" style="display:none">Reiniciar</button></div>
+  </article>
+  <article class="card" id="dragSection" style="display:none">
+    <h2>Clasifique características cualitativas</h2>
+    <p>Arrastre o toque una tarjeta y luego toque una zona.</p>
+    <div class="drag-area">
+      <div class="bank" id="bank"><b>Tarjetas</b></div>
+      <div class="grid">
+        <div class="dropzone" data-type="fund"><b>Fundamentales</b></div>
+        <div class="dropzone" data-type="mejora"><b>De mejora</b></div>
+      </div>
+    </div>
+    <button id="checkDrag" class="gold">Verificar clasificación</button>
+    <div id="dragFeedback" class="feedback"></div>
+  </article>
+</section>
+
+<section id="referencia" class="panel">
+  <article class="card">
+    <h2>Tabla resumen de las tres secciones</h2>
+    <table class="summary">
+      <thead><tr><th>Sección</th><th>Idea central</th><th>Párrafos clave</th></tr></thead>
+      <tbody>
+        <tr><td>Sección 1</td><td>Aplica a entidades sin obligación pública de rendir cuentas que publican EEFF de propósito general.</td><td>1.1–1.5</td></tr>
+        <tr><td>Sección 2</td><td>Define objetivo, características cualitativas, elementos, reconocimiento y medición.</td><td>2.1–2.52</td></tr>
+        <tr><td>Sección 10</td><td>Regula selección de políticas, cambios de políticas, estimaciones y corrección de errores.</td><td>10.1–10.6 y desarrollos posteriores</td></tr>
+      </tbody>
+    </table>
+  </article>
+  <article class="card">
+    <h2>8 características cualitativas</h2>
+    <div class="iconbox">
+      <div class="icon"><span>🎯</span>Relevancia</div><div class="icon"><span>🧾</span>Representación fiel</div><div class="icon"><span>📌</span>Materialidad</div><div class="icon"><span>⚖️</span>Neutralidad</div>
+      <div class="icon"><span>🔍</span>Verificabilidad</div><div class="icon"><span>⏱️</span>Oportunidad</div><div class="icon"><span>🔄</span>Comparabilidad</div><div class="icon"><span>📖</span>Comprensibilidad</div>
+    </div>
+  </article>
+  <article class="card">
+    <h2>Error / Cambio de política / Cambio de estimación</h2>
+    <table class="summary">
+      <thead><tr><th>Tipo</th><th>Definición</th><th>Tratamiento</th><th>Aplicación</th><th>Párrafo</th></tr></thead>
+      <tbody>
+        <tr><td>Error</td><td>Omisión o inexactitud de periodos anteriores.</td><td>Corrección retrospectiva si es material.</td><td>Ajusta comparativos o resultados acumulados.</td><td>Sección 10, errores</td></tr>
+        <tr><td>Cambio de política</td><td>Cambio en principios, bases o reglas aplicadas.</td><td>Solo si norma lo exige o mejora relevancia/fiabilidad.</td><td>Generalmente retrospectiva.</td><td>10.8 y relacionados</td></tr>
+        <tr><td>Cambio de estimación</td><td>Ajuste por nueva información sobre activos, pasivos o beneficios futuros.</td><td>No corrige periodos anteriores.</td><td>Prospectiva.</td><td>10.14A–10.15 y relacionados</td></tr>
+      </tbody>
+    </table>
+  </article>
+</section>
+<footer class="footer">Herramienta desarrollada por Juan Carlos Reyes · juancreyes.hn@gmail.com · NIIF PYMES 2025</footer>
+</div>
+<script>
+(function(){
+const tabs=document.querySelectorAll('.tab-btn'),panels=document.querySelectorAll('.panel');
+tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
+let touchStartX=0;document.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].screenX},{passive:true});document.addEventListener('touchend',e=>{let dx=e.changedTouches[0].screenX-touchStartX;if(Math.abs(dx)>90){let arr=[...tabs],i=arr.findIndex(x=>x.classList.contains('active'));let n=dx<0?Math.min(i+1,arr.length-1):Math.max(i-1,0);arr[n].click()}},{passive:true});
+const simFb=document.getElementById('simFeedback');document.querySelectorAll('.sim-choice').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.answer==='error'){simFb.className='feedback ok';simFb.innerHTML='<b>Correcto.</b> Es un error de período anterior: la información fiable estaba disponible en 2024 y se usó incorrectamente. Tratamiento: corrección retrospectiva si es material. Referencia: Sección 10, errores de períodos anteriores.'}else{simFb.className='feedback bad';simFb.innerHTML='<b>No corresponde.</b> No es nueva estimación ni cambio voluntario de política. Es una inexactitud de depreciación de un período anterior.'}}));
+const quiz=[
+{q:'Una empresa comercial no cotiza en bolsa y emite EEFF para bancos proveedores. ¿Puede aplicar NIIF PYMES?',o:['Sí','No'],a:0,r:'1.2: no tiene obligación pública y publica EEFF de propósito general.'},
+{q:'Un banco mantiene depósitos del público como negocio principal. ¿Puede afirmar cumplimiento NIIF PYMES?',o:['Sí','No'],a:1,r:'1.3(b) y 1.5: mantiene activos fiduciarios para amplio grupo de terceros.'},
+{q:'Omitir una contingencia material porque es compleja viola principalmente:',o:['Comprensibilidad','Representación fiel','Oportunidad'],a:1,r:'2.14–2.18: la información debe representar fielmente el fenómeno económico.'},
+{q:'Cambiar vida útil de un vehículo por nueva evidencia técnica es:',o:['Error','Cambio de estimación','Cambio de política'],a:1,r:'Sección 10: las estimaciones cambian por nueva información y se aplican prospectivamente.'},
+{q:'Aplicar caja en vez de devengo a ventas a crédito afecta:',o:['Base de acumulación','Comparabilidad solamente','Patrimonio legal'],a:0,r:'La base de acumulación reconoce cuando se cumplen definiciones y criterios.'},
+{q:'Una política contable debe aplicarse de forma:',o:['Consistente para transacciones similares','Libre cada cierre','Solo fiscal'],a:0,r:'10.7: consistencia para transacciones, eventos y condiciones similares.'},
+{q:'Si no hay guía específica en NIIF PYMES, la gerencia debe consultar primero:',o:['Normas fiscales','Guía NIIF PYMES sobre asuntos similares','Práctica de la competencia'],a:1,r:'10.5: jerarquía de fuentes en orden descendente.'},
+{q:'Una equivocación de depreciación de 2024 descubierta en 2025 con datos disponibles en 2024 es:',o:['Error de período anterior','Cambio de estimación','Nuevo gasto de 2025'],a:0,r:'Sección 10: error por mal uso u omisión de información fiable disponible.'},
+{q:'La información es material si su omisión puede influir en decisiones de usuarios principales.',o:['Verdadero','Falso'],a:0,r:'2.13: materialidad depende de naturaleza o magnitud en contexto.'},
+{q:'La verificabilidad es una característica:',o:['Fundamental','De mejora','De elegibilidad'],a:1,r:'2.20–2.22: verificabilidad mejora la utilidad de información relevante y fiel.'}
+];
+let qi=0,score=0,locked=false;const qEl=document.getElementById('question'),opts=document.getElementById('options'),fb=document.getElementById('feedback'),next=document.getElementById('next'),restart=document.getElementById('restart'),bar=document.getElementById('bar'),qc=document.getElementById('qCount');
+function render(){locked=false;let q=quiz[qi];qEl.textContent=q.q;qc.textContent='Pregunta '+(qi+1)+' de '+quiz.length;bar.style.width=(qi/quiz.length*100)+'%';opts.innerHTML='';fb.className='feedback';fb.style.display='none';next.style.display='none';q.o.forEach((txt,i)=>{let b=document.createElement('button');b.className='option';b.textContent=txt;b.onclick=()=>answer(i,b);opts.appendChild(b)})}
+function answer(i,b){if(locked)return;locked=true;let q=quiz[qi];[...opts.children].forEach((x,k)=>{if(k===q.a)x.classList.add('correct'); if(k===i&&i!==q.a)x.classList.add('wrong')}); if(i===q.a){score++;fb.className='feedback ok';fb.innerHTML='<b>Correcto.</b> '+q.r}else{fb.className='feedback bad';fb.innerHTML='<b>Revise.</b> '+q.r}fb.style.display='block';next.style.display='inline-block'}
+next.onclick=()=>{qi++; if(qi<quiz.length)render(); else finish()};restart.onclick=()=>{qi=0;score=0;restart.style.display='none';document.getElementById('dragSection').style.display='none';render()};
+function finish(){bar.style.width='100%';qEl.textContent='Resultado final';opts.innerHTML='<h3>Puntaje: '+score+'/'+quiz.length+' ('+Math.round(score/quiz.length*100)+'%)</h3>';fb.className=score>=7?'feedback ok':'feedback bad';fb.style.display='block';fb.innerHTML=score>=7?'Dominio aceptable del módulo. Se activa confetti.':'Conviene repasar Secciones 1, 2 y 10 antes de continuar.';next.style.display='none';restart.style.display='inline-block';document.getElementById('dragSection').style.display='block';if(score>=7)confetti()}
+function confetti(){for(let i=0;i<70;i++){let c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=['#F4A811','#0D6B8C','#1A8A4A','#E67E22','#8E44AD'][i%5];c.style.animationDelay=Math.random()*0.7+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),2600)}}render();
+const bank=document.getElementById('bank');const cards=[['Relevancia','fund'],['Representación fiel','fund'],['Comparabilidad','mejora'],['Verificabilidad','mejora'],['Oportunidad','mejora'],['Comprensibilidad','mejora']];let selected=null;
+cards.forEach(([t,type])=>{let d=document.createElement('div');d.className='drag-card';d.draggable=true;d.textContent=t;d.dataset.type=type;d.addEventListener('click',()=>{selected=d;document.querySelectorAll('.drag-card').forEach(x=>x.classList.remove('dragging'));d.classList.add('dragging')});d.addEventListener('dragstart',e=>{selected=d;e.dataTransfer.setData('text/plain',t)});bank.appendChild(d)});
+document.querySelectorAll('.dropzone').forEach(z=>{z.addEventListener('dragover',e=>e.preventDefault());z.addEventListener('drop',e=>{e.preventDefault();if(selected)z.appendChild(selected);selected=null});z.addEventListener('click',()=>{if(selected){z.appendChild(selected);selected.classList.remove('dragging');selected=null}})});
+document.getElementById('checkDrag').onclick=()=>{let ok=true;document.querySelectorAll('.dropzone .drag-card').forEach(c=>{if(c.parentElement.dataset.type!==c.dataset.type)ok=false});let df=document.getElementById('dragFeedback');df.className=ok?'feedback ok':'feedback bad';df.innerHTML=ok?'Clasificación correcta. Fundamentales: relevancia y representación fiel. De mejora: comparabilidad, verificabilidad, oportunidad y comprensibilidad.':'Hay tarjetas en una categoría incorrecta. Revise Sección 2, párrafos 2.9 a 2.24.'};
+})();
+</script>
+</body>
+</html>

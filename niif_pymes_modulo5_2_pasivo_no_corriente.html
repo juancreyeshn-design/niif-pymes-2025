@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 5.2 — Pasivo No Corriente | NIIF PYMES</title>
+<style>
+:root{--gold:#F4A811;--dark:#1B2638;--bg:#F5F7FA;--activo:#0D6B8C;--pasivo:#C0392B;--patrim:#1A8A4A;--ingreso:#E67E22;--gasto:#8E44AD;--white:#fff;--muted:#64748b;--line:#d8dee9;--ok:#1A8A4A;--bad:#C0392B}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark);font-size:16px;line-height:1.55}
+header{background:linear-gradient(135deg,var(--dark),#31445f);color:white;padding:26px 16px 22px;border-bottom:7px solid var(--gold)}
+.wrap{max-width:1180px;margin:auto}
+.badge{display:inline-block;background:var(--gold);color:var(--dark);font-weight:800;border-radius:999px;padding:8px 14px;margin-bottom:12px}
+h1{margin:4px 0 8px;font-size:clamp(1.8rem,4vw,3.1rem);line-height:1.1}
+.subtitle{font-size:1.08rem;max-width:900px;color:#e9eef6}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:16px 0}
+.tab{min-height:52px;border:0;border-radius:14px;padding:10px;background:white;color:var(--dark);font-weight:800;box-shadow:0 2px 10px #0001;cursor:pointer;touch-action:manipulation}
+.tab.active{background:var(--gold);outline:3px solid #0001}
+main{padding:10px 16px 34px}
+.panel{display:none;animation:fade .25s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:white;border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 3px 14px #1b26380d}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+h2{font-size:1.55rem;margin:0 0 10px} h3{margin:4px 0 8px;font-size:1.12rem}
+ul{margin:8px 0 0;padding-left:20px}.small{color:var(--muted);font-size:.95rem}
+.formrow{display:grid;grid-template-columns:1fr 140px;gap:10px;align-items:center;margin:10px 0}
+input,select{min-height:48px;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:16px;width:100%}
+.btn{min-height:48px;border:0;border-radius:14px;padding:10px 14px;font-size:16px;font-weight:800;background:var(--activo);color:white;cursor:pointer;touch-action:manipulation}
+.btn.gold{background:var(--gold);color:var(--dark)}.btn.bad{background:var(--pasivo)}
+.result{background:#f8fafc;border:1px dashed #b7c2d0;border-radius:14px;padding:14px;margin-top:12px;font-weight:700}
+.journal{background:#111827;color:#f8fafc;border-radius:14px;padding:14px;overflow:auto}
+.kpi{border-left:6px solid var(--gold);padding:12px;background:#fffdf6;border-radius:12px}
+.account{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #ffffff24;padding:6px 0;min-width:360px}
+.droparea{min-height:130px;border:2px dashed var(--line);border-radius:14px;padding:10px;background:#f8fafc}
+.item{background:white;border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;cursor:grab;touch-action:none}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#f8fafc;color:var(--dark);border:1px solid var(--line)}
+.choice.correct{background:#dcfce7;border-color:#86efac}.choice.wrong{background:#fee2e2;border-color:#fecaca}
+.progress{height:14px;background:#e5e7eb;border-radius:999px;overflow:hidden}.bar{height:100%;width:0;background:var(--gold);transition:.3s}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden}.confetti i{position:absolute;top:-20px;width:10px;height:16px;background:var(--gold);animation:fall 1.6s linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:0}}
+footer{background:var(--dark);color:white;text-align:center;padding:20px}
+@media(max-width:900px){.tabs{grid-template-columns:repeat(2,1fr)}.grid,.grid3{grid-template-columns:1fr}.formrow{grid-template-columns:1fr}.account{min-width:0}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<span class="badge">NIIF PYMES 2025 · Secciones 28 y 29</span>
+<h1>Módulo 5.2 — Pasivo No Corriente</h1>
+<div class="subtitle">Beneficios a Empleados · Impuesto sobre la Renta Corriente y Diferido</div>
+</div></header>
+<main class="wrap">
+<nav class="tabs" aria-label="Pestañas del módulo">
+<button class="tab active" data-tab="t1">① 📘 Corto plazo</button>
+<button class="tab" data-tab="t2">② 🏦 Post-empleo</button>
+<button class="tab" data-tab="t3">③ 📊 ISR corriente</button>
+<button class="tab" data-tab="t4">④ 🔄 ISR diferido</button>
+<button class="tab" data-tab="t5">⑤ ⚖️ Caso integrador</button>
+<button class="tab" data-tab="t6">⑥ 🎯 Mini-juego</button>
+</nav>
+
+<section id="t1" class="panel active">
+<div class="card"><h2>Beneficios a corto plazo — Sección 28</h2>
+<div class="grid">
+<div><h3>Clasificación bajo Sección 28</h3><ul><li>Beneficios a corto plazo: vencen dentro de 12 meses.</li><li>Beneficios post-empleo: pensiones, jubilaciones y planes posteriores al empleo.</li><li>Otros beneficios a largo plazo.</li><li>Beneficios por terminación.</li></ul></div>
+<div><h3>Reconocimiento</h3><ul><li>Se reconocen como gasto cuando el empleado presta el servicio, salvo capitalización permitida en otra sección.</li><li>Los beneficios de corto plazo se miden sin descuento.</li><li>Las ausencias acumulativas generan pasivo cuando el servicio aumenta el derecho futuro.</li></ul></div>
+</div></div>
+<div class="card"><h2>Simulación: provisión mensual de vacaciones</h2>
+<div class="grid">
+<div>
+<div class="formrow"><label>Número de empleados</label><input id="vacEmp" type="number" value="5" min="1"></div>
+<div class="formrow"><label>Sueldo mensual promedio L.</label><input id="vacSal" type="number" value="15000" min="0"></div>
+<div class="formrow"><label>Días de vacaciones al año</label><input id="vacDias" type="number" value="10" min="0"></div>
+<div class="formrow"><label>Días laborables al mes</label><input id="vacLab" type="number" value="22" min="1"></div>
+<button class="btn" onclick="calcVac()">Calcular provisión</button>
+<div id="vacRes" class="result"></div>
+</div>
+<div class="journal">
+<div class="account"><b>DEBE: Gasto de Vacaciones</b><span id="vacDebe">L 2,840</span></div>
+<div class="account"><b>HABER: Vacaciones por Pagar</b><span id="vacHaber">L 2,840</span></div>
+<p class="small">Distribuidora El Progreso, S.A. · Banco de Honduras, S.A.</p>
+</div>
+</div></div>
+</section>
+
+<section id="t2" class="panel">
+<div class="card"><h2>Beneficios post-empleo</h2><div class="grid">
+<div class="kpi"><h3>Plan de aportaciones definidas</h3><p>La empresa paga una aportación fija. El riesgo de inversión lo asume el empleado. El gasto se reconoce cuando se devenga.</p></div>
+<div class="kpi"><h3>Plan de beneficios definidos</h3><p>La empresa promete un beneficio futuro específico. La obligación se mide considerando valor presente, activos del plan y ajustes actuariales.</p></div>
+</div></div>
+<div class="card"><h2>Simulación: obligación por cesantía</h2><div class="grid">
+<div>
+<div class="formrow"><label>Años de servicio</label><input id="cesAnios" type="number" value="8"></div>
+<div class="formrow"><label>Sueldo mensual L.</label><input id="cesSal" type="number" value="18000"></div>
+<div class="formrow"><label>Tasa de descuento anual</label><input id="cesTasa" type="number" value="10"></div>
+<button class="btn" onclick="calcCes()">Calcular obligación</button>
+<div id="cesRes" class="result"></div>
+</div>
+<div class="journal">
+<div class="account"><b>DEBE: Gasto Beneficios Empleados</b><span id="cesDebe">L 12,150</span></div>
+<div class="account"><b>HABER: Provisión Cesantía</b><span id="cesHaber">L 12,150</span></div>
+<p class="small">Referencia didáctica: un mes por año trabajado, con medición a valor presente.</p>
+</div></div></div>
+</section>
+
+<section id="t3" class="panel">
+<div class="card"><h2>Impuesto corriente — Sección 29</h2>
+<p>El impuesto corriente es el impuesto a pagar o recuperar por la renta fiscal del período actual o períodos anteriores. Se mide con tasas y leyes aprobadas o sustancialmente aprobadas al cierre.</p>
+<div class="grid">
+<div class="kpi"><b>Base contable</b><br>Resultado según NIIF PYMES.</div>
+<div class="kpi"><b>Base fiscal</b><br>Resultado ajustado conforme a reglas tributarias.</div>
+</div></div>
+<div class="card"><h2>Simulación: conciliación fiscal</h2>
+<div class="grid">
+<div>
+<div class="formrow"><label>Utilidad contable L.</label><input id="isrUtil" type="number" value="63000"></div>
+<div class="formrow"><label>Gastos no deducibles L.</label><input id="isrGnd" type="number" value="8000"></div>
+<div class="formrow"><label>Ingresos exentos L.</label><input id="isrEx" type="number" value="5000"></div>
+<div class="formrow"><label>Depreciación fiscal acelerada L.</label><input id="isrDep" type="number" value="12000"></div>
+<div class="formrow"><label>Tasa ISR %</label><input id="isrTasa" type="number" value="25"></div>
+<button class="btn" onclick="calcISR()">Calcular ISR corriente</button>
+<div id="isrRes" class="result"></div>
+</div>
+<div class="journal">
+<div class="account"><b>DEBE: Gasto ISR Corriente</b><span id="isrDebe">L 13,500</span></div>
+<div class="account"><b>HABER: ISR por Pagar</b><span id="isrHaber">L 13,500</span></div>
+</div></div></div>
+</section>
+
+<section id="t4" class="panel">
+<div class="card"><h2>Impuesto diferido — Sección 29</h2>
+<div class="grid">
+<div><h3>Diferencias imponibles → PID</h3><p>Generan mayor pago futuro de impuesto. Ejemplo: valor en libros NIIF mayor que la base fiscal.</p></div>
+<div><h3>Diferencias deducibles → AID</h3><p>Reducen pago futuro de impuesto. Se reconocen si es probable su recuperación.</p></div>
+</div></div>
+<div class="card"><h2>Simulación: AID y PID</h2><div class="grid">
+<div>
+<div class="formrow"><label>PPE valor NIIF L.</label><input id="ppeNiif" type="number" value="228000"></div>
+<div class="formrow"><label>PPE base fiscal L.</label><input id="ppeFiscal" type="number" value="196000"></div>
+<div class="formrow"><label>Provisión no deducible L.</label><input id="provND" type="number" value="80000"></div>
+<div class="formrow"><label>Tasa ISR %</label><input id="difTasa" type="number" value="25"></div>
+<button class="btn" onclick="calcDif()">Calcular impuesto diferido</button>
+<div id="difRes" class="result"></div>
+</div>
+<div class="journal" id="difJournal"></div>
+</div></div>
+</section>
+
+<section id="t5" class="panel">
+<div class="card"><h2>Caso integrador: Distribuidora El Progreso, S.A. — 31/12/2025</h2>
+<div class="grid3">
+<div class="kpi"><b>Beneficios</b><br>Vacaciones L 34,080 · Cesantía L 97,440 · Seguridad social L 18,000.</div>
+<div class="kpi"><b>ISR corriente</b><br>Utilidad L 63,000 · GND L 97,440 · Exentos L 5,000.</div>
+<div class="kpi"><b>ISR diferido</b><br>AID L 24,360 · PID L 8,000 · Neto L 16,360.</div>
+</div>
+<button class="btn gold" onclick="casoPaso(1)">Paso 1: beneficios</button>
+<button class="btn gold" onclick="casoPaso(2)">Paso 2: ISR corriente</button>
+<button class="btn gold" onclick="casoPaso(3)">Paso 3: ISR diferido</button>
+<button class="btn gold" onclick="casoPaso(4)">Paso 4: utilidad neta</button>
+<div id="casoRes" class="result">Toque cada paso para construir el cierre contable.</div>
+</div>
+</section>
+
+<section id="t6" class="panel">
+<div class="card"><h2>Mini-juego: Secciones 28 y 29</h2>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<p id="score" class="small">Puntaje: 0/12</p>
+<div id="quiz"></div>
+<button class="btn gold" onclick="nextQ()">Siguiente</button>
+</div>
+</section>
+</main>
+<footer>Herramienta desarrollada por Juan Carlos Reyes · juancreyes.hn@gmail.com · NIIF PYMES 2025</footer>
+<div id="confetti" class="confetti"></div>
+<script>
+const L=n=>'L '+Number(n).toLocaleString('es-HN',{maximumFractionDigits:0});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
+function calcVac(){let e=+vacEmp.value,s=+vacSal.value,d=+vacDias.value,l=+vacLab.value;let prov=s/l*(d/12)*e;vacRes.innerHTML=`Provisión mensual por empleado: <b>${L(s/l*(d/12))}</b><br>Total mensual: <b>${L(prov)}</b><br>Total anual: <b>${L(prov*12)}</b>`;vacDebe.textContent=L(prov);vacHaber.textContent=L(prov)}
+function calcCes(){let a=+cesAnios.value,s=+cesSal.value,t=+cesTasa.value/100;let nom=a*s;let vp=nom/Math.pow(1+t,a);let anual=vp/a;cesRes.innerHTML=`Obligación nominal: <b>${L(nom)}</b><br>Valor presente estimado: <b>${L(vp)}</b><br>Gasto anual promedio: <b>${L(anual)}</b>`;cesDebe.textContent=L(anual);cesHaber.textContent=L(anual)}
+function calcISR(){let rg=+isrUtil.value + +isrGnd.value - +isrEx.value - +isrDep.value;let isr=rg*(+isrTasa.value/100);isrRes.innerHTML=`Renta neta gravable: <b>${L(rg)}</b><br>ISR corriente: <b>${L(isr)}</b>`;isrDebe.textContent=L(isr);isrHaber.textContent=L(isr)}
+function calcDif(){let tasa=+difTasa.value/100;let imponible=+ppeNiif.value-+ppeFiscal.value;let pid=Math.max(imponible,0)*tasa;let aid=+provND.value*tasa;let neto=aid-pid;difRes.innerHTML=`Diferencia imponible PPE: <b>${L(imponible)}</b><br>PID: <b>${L(pid)}</b><br>AID por provisión no deducible: <b>${L(aid)}</b><br>Efecto neto AID − PID: <b>${L(neto)}</b>`;difJournal.innerHTML=`<div class="account"><b>DEBE: Gasto ISR Diferido</b><span>${L(pid)}</span></div><div class="account"><b>HABER: Pasivo ISR Diferido</b><span>${L(pid)}</span></div><hr><div class="account"><b>DEBE: Activo ISR Diferido</b><span>${L(aid)}</span></div><div class="account"><b>HABER: Ingreso ISR Diferido</b><span>${L(aid)}</span></div>`}
+function casoPaso(p){let txt={1:'Total gasto beneficios: vacaciones L 34,080 + cesantía L 97,440 + seguridad social L 18,000 = <b>L 149,520</b>.',2:'Renta gravable: L 63,000 + L 97,440 − L 5,000 = <b>L 155,440</b>. ISR corriente 25% = <b>L 38,860</b>.',3:'AID por cesantía no deducible: L 97,440 × 25% = <b>L 24,360</b>. PID por depreciación acelerada: L 32,000 × 25% = <b>L 8,000</b>. Neto: <b>L 16,360</b>.',4:'Utilidad neta: L 63,000 − L 38,860 + L 16,360 = <b>L 40,500</b>.'};casoRes.innerHTML=txt[p]}
+const questions=[
+['¿Cómo se mide un beneficio a corto plazo?', ['Sin descuento','A valor razonable','Siempre por actuario'],0,'Sección 28: los beneficios de corto plazo se miden por importes no descontados.'],
+['Plan donde la empresa paga 5% fijo del sueldo:', ['Aportaciones definidas','Beneficios definidos','Terminación'],0,'La obligación se limita a la aportación comprometida.'],
+['Vacaciones acumulativas no usadas:', ['Generan pasivo','No se reconocen','Van a patrimonio'],0,'Se reconoce el costo cuando el servicio aumenta el derecho futuro.'],
+['ISR corriente es:', ['Impuesto del período actual','Impuesto futuro por diferencias temporarias','Solo retenciones'],0,'Sección 29: impuesto payable/recoverable por renta fiscal actual o pasada.'],
+['Valor NIIF de PPE mayor que base fiscal:', ['Diferencia imponible','Diferencia deducible','No genera impuesto'],0,'Usualmente origina pasivo por impuesto diferido.'],
+['Provisión no deducible aún:', ['Diferencia deducible','Diferencia imponible','Ingreso exento'],0,'Puede originar activo por impuesto diferido si es probable recuperarlo.'],
+['Diferencia temporaria L 40,000 al 25%:', ['L 10,000','L 8,000','L 20,000'],0,'40,000 × 25% = 10,000.'],
+['Activo por impuesto diferido se reconoce si:', ['Es probable recuperarlo','Siempre','Nunca'],0,'Requiere probabilidad de utilidad fiscal futura suficiente.'],
+['10 años, sueldo L 20,000, obligación nominal:', ['L 200,000','L 20,000','L 2,000,000'],0,'Un mes por año: 10 × 20,000.'],
+['AID L 24,000 y PID L 8,000:', ['AID neto L 16,000','PID neto L 16,000','Cero'],0,'24,000 − 8,000 = 16,000.'],
+['Gasto no deducible en conciliación:', ['Aumenta la renta gravable','Disminuye la renta gravable','No afecta'],0,'Se suma a la utilidad contable.'],
+['Ingreso exento en conciliación:', ['Disminuye la renta gravable','Aumenta ISR','Se capitaliza'],0,'Se resta de la utilidad contable.']
+];let qi=0,pts=0,answered=false;
+function renderQ(){answered=false;let q=questions[qi];quiz.innerHTML=`<h3>${qi+1}. ${q[0]}</h3>`+q[1].map((a,i)=>`<button class="btn choice" onclick="ans(${i})">${a}</button>`).join('')+`<div id="fb" class="result" style="display:none"></div>`;bar.style.width=(qi/12*100)+'%';score.textContent=`Puntaje: ${pts}/12`}
+function ans(i){if(answered)return;answered=true;let q=questions[qi];document.querySelectorAll('.choice').forEach((b,ix)=>b.classList.add(ix==q[2]?'correct':(ix==i?'wrong':'')));if(i==q[2])pts++;fb.style.display='block';fb.innerHTML=(i==q[2]?'Correcto. ':'Revisar. ')+q[3];score.textContent=`Puntaje: ${pts}/12`}
+function nextQ(){if(qi<questions.length-1){qi++;renderQ()}else{bar.style.width='100%';quiz.innerHTML=`<h2>Resultado final: ${pts}/12</h2><p>${pts>=9?'Dominio fuerte.':'Conviene repasar las secciones con error.'}</p>`;if(pts>=9)confetti()}}
+function confetti(){for(let i=0;i<80;i++){let c=document.createElement('i');c.style.left=Math.random()*100+'%';c.style.background=['#F4A811','#0D6B8C','#C0392B','#1A8A4A','#8E44AD'][i%5];c.style.animationDelay=(Math.random()*0.5)+'s';document.getElementById('confetti').appendChild(c);setTimeout(()=>c.remove(),1800)}}
+['input','change','touchend'].forEach(ev=>document.addEventListener(ev,e=>{if(['vacEmp','vacSal','vacDias','vacLab'].includes(e.target.id))calcVac()}));
+calcVac();calcCes();calcISR();calcDif();renderQ();
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Módulo 2 — Estados Financieros | NIIF PYMES 2025</title>
+<style>
+:root{
+  --gold:#F4A811;--dark:#1B2638;--bg:#F5F7FA;--activo:#0D6B8C;--pasivo:#C0392B;--patrim:#1A8A4A;--ingreso:#E67E22;--gasto:#8E44AD;
+  --white:#fff;--muted:#64748b;--line:#d9e1ea;--ok:#15803d;--bad:#b91c1c;--soft:#eef3f8;--shadow:0 12px 32px rgba(27,38,56,.12);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark);font-size:16px;line-height:1.55}
+button,input,select{font:inherit} button{min-height:48px;cursor:pointer;border:0;border-radius:14px;padding:12px 16px;font-weight:700;transition:.2s ease;touch-action:manipulation} button:hover{transform:translateY(-1px)}
+.header{background:linear-gradient(135deg,var(--dark),#253852);color:var(--white);padding:28px 18px 32px;box-shadow:var(--shadow)}
+.wrap{max-width:1180px;margin:auto}.badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#241700;font-weight:800;border-radius:999px;padding:8px 14px;margin-bottom:14px}
+h1{margin:0;font-size:clamp(2rem,5vw,4rem);line-height:1.05} .subtitle{font-size:clamp(1rem,2.3vw,1.35rem);color:#dbeafe;margin-top:12px}.small{font-size:.92rem;color:var(--muted)}
+.tabs{position:sticky;top:0;background:rgba(245,247,250,.96);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid var(--line)}
+.tabbar{max-width:1180px;margin:auto;display:flex;gap:8px;overflow:auto;padding:10px 12px}.tabbtn{white-space:nowrap;background:var(--white);color:var(--dark);border:1px solid var(--line)}.tabbtn.active{background:var(--dark);color:white;border-color:var(--dark)}
+main{max-width:1180px;margin:20px auto;padding:0 14px}.tab{display:none;animation:fade .35s ease}.tab.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 24px rgba(27,38,56,.06)}
+.col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}.col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
+h2{font-size:1.55rem;margin:.2rem 0 1rem} h3{margin:.2rem 0 .75rem;color:var(--dark)} .ref{border-left:5px solid var(--gold);background:#fff8e6;padding:10px 12px;border-radius:12px;font-weight:700;margin-top:12px}
+.pill{display:inline-block;border-radius:999px;background:var(--soft);padding:6px 10px;margin:4px 4px 4px 0;font-weight:700}.pill.activo{background:#e5f5fa;color:var(--activo)}.pill.pasivo{background:#fdebea;color:var(--pasivo)}.pill.patrim{background:#e8f7ee;color:var(--patrim)}.pill.ingreso{background:#fff1df;color:var(--ingreso)}.pill.gasto{background:#f3e8ff;color:var(--gasto)}
+.statement-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.state-card{min-height:116px;padding:16px;border-radius:18px;color:white;font-weight:800;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);user-select:none}.state-card span{font-weight:400;font-size:.9rem}.state-card.active{outline:4px solid var(--gold);transform:scale(1.02)}
+.blue{background:var(--activo)}.red{background:var(--pasivo)}.green{background:var(--patrim)}.orange{background:var(--ingreso)}.purple{background:var(--gasto)}
+.table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:12px}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left}.table th{background:var(--dark);color:white}.num{text-align:right!important;font-variant-numeric:tabular-nums}.total{font-weight:800;background:#f8fafc}
+.exercise{display:grid;gap:10px}.item{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:12px}.options{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.opt{background:white;border:1px solid var(--line);color:var(--dark)}.correct{background:#dcfce7!important;border-color:#86efac!important;color:#14532d!important}.wrong{background:#fee2e2!important;border-color:#fca5a5!important;color:#7f1d1d!important}
+.dropzone{min-height:86px;background:#f8fafc;border:2px dashed #cbd5e1;border-radius:16px;padding:10px}.dragcard{display:inline-flex;margin:6px;padding:10px 12px;background:white;border:1px solid var(--line);border-radius:12px;font-weight:700;touch-action:none;user-select:none}.dragging{opacity:.5}.notice{background:#eef6ff;border:1px solid #bfdbfe;border-radius:16px;padding:12px}.score{font-size:2.2rem;font-weight:900;color:var(--dark)}
+.step{display:none}.step.active{display:block}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:8px 0 14px}.bar{height:100%;background:var(--gold);width:0;transition:.3s ease}.btn-primary{background:var(--gold);color:#201500}.btn-dark{background:var(--dark);color:white}.btn-ghost{background:white;border:1px solid var(--line);color:var(--dark)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.kpi div{background:#f8fafc;border-radius:16px;padding:12px}.kpi strong{display:block;font-size:1.25rem}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:99}.confetti i{position:absolute;width:10px;height:18px;background:var(--gold);animation:fall 1.6s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.footer{margin-top:28px;background:var(--dark);color:white;text-align:center;padding:22px;font-weight:700}.footer a{color:var(--gold)}
+@media(max-width:800px){.grid{display:block}.card{margin-bottom:14px}.tabbar{padding-left:8px}.table{font-size:.92rem}.hide-mobile{display:none}}
+</style>
+</head>
+<body>
+<header class="header"><div class="wrap">
+  <div class="badge">NIIF PYMES 2025 · Estados Financieros</div>
+  <h1>Módulo 2 — Estados Financieros</h1>
+  <div class="subtitle">Secciones 3, 4, 5, 6, 7 y 8 · Estructura y Presentación</div>
+</div></header>
+<nav class="tabs"><div class="tabbar" id="tabbar">
+  <button class="tabbtn active" data-tab="t1">📘 Concepto general</button>
+  <button class="tabbtn" data-tab="t2">⚖️ Situación y resultados</button>
+  <button class="tabbtn" data-tab="t3">🔄 Patrimonio y flujos</button>
+  <button class="tabbtn" data-tab="t4">📋 Notas a EEFF</button>
+  <button class="tabbtn" data-tab="t5">🎯 Mini-juego</button>
+</div></nav>
+<main>
+<section class="tab active" id="t1">
+  <div class="grid">
+    <div class="card col-5"><h2>Sección 3: presentación de estados financieros</h2>
+      <p>La Sección 3 establece la presentación razonable, cumplimiento con NIIF para PYMES, negocio en marcha, frecuencia mínima anual, uniformidad, información comparativa, importancia relativa, agrupación e identificación de los estados financieros.</p>
+      <div><span class="pill activo">Presentación razonable</span><span class="pill pasivo">Negocio en marcha</span><span class="pill patrim">Mínimo anual</span><span class="pill ingreso">Uniformidad</span><span class="pill gasto">Materialidad</span></div>
+      <div class="ref">Referencia: Sección 3, párrs. 3.1 al 3.24.</div>
+    </div>
+    <div class="card col-7"><h2>Conjunto completo requerido</h2>
+      <p>Toque cada estado financiero para ver su función.</p>
+      <div class="statement-map" id="mapStates"></div>
+      <div class="notice" id="stateInfo">Seleccione un estado financiero.</div>
+    </div>
+    <div class="card col-12"><h3>Los 5 estados financieros</h3>
+      <ol>
+        <li>Estado de situación financiera.</li><li>Estado del resultado integral o estado de resultados, según la presentación aplicable.</li><li>Estado de cambios en el patrimonio.</li><li>Estado de flujos de efectivo.</li><li>Notas, incluidas políticas contables e información explicativa.</li>
+      </ol>
+      <p class="small">La alternativa de estado de resultados y ganancias acumuladas puede utilizarse cuando se cumplan las condiciones de la Sección 6.</p>
+    </div>
+  </div>
+</section>
+<section class="tab" id="t2">
+  <div class="grid">
+    <div class="card col-6"><h2>Subsección A — Estado de Situación Financiera</h2>
+      <p>Presenta activos, pasivos y patrimonio al final del período. La distinción corriente/no corriente se basa, entre otros criterios, en el ciclo normal de operación y el plazo de realización o liquidación esperado dentro de doce meses.</p>
+      <table class="table"><tr><th>Elemento</th><th>Ejemplo</th><th>Color</th></tr><tr><td>Activo</td><td>Caja, cuentas por cobrar, inventarios, PPE</td><td><span class="pill activo">Activo</span></td></tr><tr><td>Pasivo</td><td>Cuentas por pagar, préstamos</td><td><span class="pill pasivo">Pasivo</span></td></tr><tr><td>Patrimonio</td><td>Capital social, utilidades retenidas</td><td><span class="pill patrim">Patrimonio</span></td></tr></table>
+      <div class="ref">Referencia: Sección 4, párrs. 4.4 al 4.8.</div>
+    </div>
+    <div class="card col-6"><h2>Simulación: corriente o no corriente</h2><div id="classifyCurrent" class="exercise"></div><p id="currentScore" class="score">0 / 10</p></div>
+    <div class="card col-6"><h2>Subsección B — Estado de Resultados</h2>
+      <p>La Sección 5 permite presentar el resultado integral total en un solo estado o en dos estados. Los gastos pueden analizarse por naturaleza o por función, según proporcione información fiable y más relevante.</p>
+      <div class="kpi"><div><strong>Ventas</strong>L. 320,000</div><div><strong>Costo de ventas</strong>L. 185,000</div><div><strong>Gastos operacionales</strong>L. 72,000</div><div><strong>Utilidad neta</strong>L. 63,000</div></div>
+      <div class="ref">Referencia: Sección 5, párrs. 5.5 al 5.7.</div>
+    </div>
+    <div class="card col-6"><h2>Construya el Estado de Resultados</h2><div class="progress"><div class="bar" id="erBar"></div></div><div id="erStep"></div><div class="options"><button class="btn-primary" id="nextER">Siguiente paso</button><button class="btn-ghost" id="resetER">Reiniciar</button></div></div>
+  </div>
+</section>
+<section class="tab" id="t3">
+  <div class="grid">
+    <div class="card col-6"><h2>Subsección A — Cambios en el Patrimonio</h2>
+      <p>Muestra utilidad o pérdida del período, otro resultado integral, efectos de cambios de políticas o correcciones de errores, inversiones de propietarios, dividendos y otras distribuciones.</p>
+      <table class="table" id="patTable"><tr><th>Movimiento</th><th class="num">Capital</th><th class="num">Utilidades retenidas</th><th class="num">Total</th></tr></table>
+      <div class="options"><button class="btn-primary" id="addPat">Aplicar operación</button><button class="btn-ghost" id="resetPat">Reiniciar</button></div>
+      <div class="ref">Referencia: Sección 6, párrs. 6.1 al 6.5.</div>
+    </div>
+    <div class="card col-6"><h2>Estado de resultados y ganancias acumuladas</h2>
+      <p>Puede presentarse como alternativa cuando los únicos cambios en patrimonio proceden de resultados, dividendos, correcciones de errores de períodos anteriores y cambios de políticas contables.</p>
+      <div class="notice"><strong>Ejemplo:</strong> utilidad neta L. 63,000 menos dividendos L. 12,000 aumenta las utilidades retenidas netas en L. 51,000.</div>
+    </div>
+    <div class="card col-6"><h2>Subsección B — Flujos de efectivo</h2>
+      <p>Clasifica los movimientos de efectivo en actividades de operación, inversión y financiamiento. Las transacciones sin efectivo se excluyen del estado, aunque pueden requerir revelación en notas.</p>
+      <div><span class="pill ingreso">Operación</span><span class="pill activo">Inversión</span><span class="pill patrim">Financiamiento</span></div>
+      <h3>Directo vs. indirecto</h3>
+      <table class="table"><tr><th>Método directo</th><th>Método indirecto</th></tr><tr><td>Cobros de clientes y pagos a proveedores/empleados.</td><td>Parte de utilidad neta y ajusta partidas sin efectivo y capital de trabajo.</td></tr></table>
+      <div class="ref">Referencia: Sección 7, párrs. 7.1 al 7.20.</div>
+    </div>
+    <div class="card col-6"><h2>Simulación: flujo de efectivo</h2><div id="cashStep"></div><div class="options"><button class="btn-primary" id="nextCash">Agregar flujo</button><button class="btn-ghost" id="resetCash">Reiniciar</button></div></div>
+  </div>
+</section>
+<section class="tab" id="t4">
+  <div class="grid">
+    <div class="card col-5"><h2>Sección 8 — Notas a los EEFF</h2>
+      <p>Las notas presentan bases de preparación, políticas contables, información requerida no presentada en el cuerpo de los estados y datos relevantes para comprenderlos.</p>
+      <ol><li>Declaración de cumplimiento con NIIF para PYMES.</li><li>Resumen de políticas contables materiales/significativas.</li><li>Información de apoyo en la secuencia de los estados.</li><li>Juicios, estimaciones y otros supuestos clave.</li></ol>
+      <div class="ref">Referencia: Sección 8, párrs. 8.2 al 8.6.</div>
+    </div>
+    <div class="card col-7"><h2>Simulación: ¿nota o cuerpo del estado?</h2><div id="notesQuiz" class="exercise"></div><p id="notesScore" class="score">0 / 6</p></div>
+    <div class="card col-12"><h2>Nota modelo de políticas contables</h2>
+      <div class="notice"><p><strong>Distribuidora El Progreso, S.A.</strong> prepara sus estados financieros de propósito general de conformidad con la NIIF para las PYMES. Los estados financieros se presentan en Lempiras. Los inventarios se miden al menor entre el costo y el precio de venta estimado menos costos de terminación y venta. Las propiedades y equipo se miden al costo menos depreciación acumulada y deterioro acumulado. Los ingresos por ventas se reconocen cuando se transfiere el control de los bienes al cliente. Las estimaciones significativas incluyen deterioro de cuentas por cobrar, vida útil de propiedades y equipo y provisiones.</p></div>
+    </div>
+  </div>
+</section>
+<section class="tab" id="t5">
+  <div class="grid">
+    <div class="card col-12"><h2>Mini-juego — 12 preguntas</h2><p>Responda cada reto. La retroalimentación incluye referencia a la sección o párrafo aplicable.</p><div class="progress"><div class="bar" id="gameBar"></div></div><div id="gameArea"></div><div class="options"><button class="btn-primary" id="nextGame">Responder / siguiente</button><button class="btn-ghost" id="resetGame">Reiniciar juego</button></div><p id="gameResult" class="score"></p></div>
+  </div>
+</section>
+</main>
+<footer class="footer">Herramienta desarrollada por Juan Carlos Reyes · <a href="mailto:juancreyes.hn@gmail.com">juancreyes.hn@gmail.com</a> · NIIF PYMES 2025</footer>
+<div class="confetti" id="confetti"></div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s), money=n=>'L. '+Number(n).toLocaleString('es-HN');
+function setTab(id){$$('.tabbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));$$('.tab').forEach(t=>t.classList.toggle('active',t.id===id));}
+$('#tabbar').addEventListener('click',e=>{let b=e.target.closest('button');if(b)setTab(b.dataset.tab)});$('#tabbar').addEventListener('touchstart',e=>{let b=e.target.closest('button');if(b)setTab(b.dataset.tab)},{passive:true});
+const states=[['Estado de Situación Financiera','Recursos, obligaciones y patrimonio a una fecha.','blue'],['Estado de Resultados / Resultado Integral','Desempeño: ingresos, gastos y utilidad.','orange'],['Estado de Cambios en Patrimonio','Movimientos de capital, dividendos y utilidades.','green'],['Estado de Flujos de Efectivo','Entradas y salidas por operación, inversión y financiamiento.','purple'],['Notas a los EEFF','Políticas, juicios, estimaciones y desagregaciones.','red']];
+$('#mapStates').innerHTML=states.map((s,i)=>`<div class="state-card ${s[2]}" data-i="${i}">${s[0]}<span>Tocar para ver función</span></div>`).join('');
+$('#mapStates').addEventListener('click',e=>{let c=e.target.closest('.state-card');if(!c)return;$$('.state-card').forEach(x=>x.classList.remove('active'));c.classList.add('active');$('#stateInfo').innerHTML='<strong>'+states[c.dataset.i][0]+':</strong> '+states[c.dataset.i][1];});
+const currentItems=[['Caja y Bancos','Corriente'],['Cuentas por Cobrar','Corriente'],['Inventarios','Corriente'],['Propiedades y Equipo','No corriente'],['Depreciación Acumulada PPE','No corriente'],['Cuentas por Pagar','Corriente'],['Préstamo Bancario C/P','Corriente'],['Préstamo Bancario L/P','No corriente'],['Capital Social','No corriente'],['Impuesto diferido activo','No corriente']];let curScore=0, curDone={};
+$('#classifyCurrent').innerHTML=currentItems.map((it,i)=>`<div class="item"><strong>${it[0]}</strong><div class="options"><button class="opt" data-i="${i}" data-a="Corriente">Corriente</button><button class="opt" data-i="${i}" data-a="No corriente">No corriente</button></div></div>`).join('');
+$('#classifyCurrent').addEventListener('click',e=>{let b=e.target.closest('button');if(!b||curDone[b.dataset.i])return;let ok=currentItems[b.dataset.i][1]===b.dataset.a;b.classList.add(ok?'correct':'wrong');curDone[b.dataset.i]=1;if(ok)curScore++;$('#currentScore').textContent=curScore+' / 10';});
+const er=[['Ventas',320000],['Costo de ventas',-185000],['Ganancia bruta',135000],['Gastos operacionales',-72000],['Utilidad neta',63000]];let eri=0;function renderER(){let rows=er.slice(0,eri).map(r=>`<tr><td>${r[0]}</td><td class="num">${money(r[1])}</td></tr>`).join('');$('#erStep').innerHTML=`<table class="table"><tr><th>Partida</th><th class="num">Importe</th></tr>${rows}</table>`;$('#erBar').style.width=(eri/er.length*100)+'%';}$('#nextER').onclick=()=>{if(eri<er.length)eri++;renderER();};$('#resetER').onclick=()=>{eri=0;renderER();};renderER();
+const patOps=[['Saldo inicial',200000,66000],['Utilidad neta',0,63000],['Dividendos declarados',0,-12000],['Emisión de acciones',30000,0],['Saldo final',230000,117000]];let pati=1;function renderPat(){let rows=patOps.slice(0,pati).map(r=>`<tr><td>${r[0]}</td><td class="num">${money(r[1])}</td><td class="num">${money(r[2])}</td><td class="num">${money(r[1]+r[2])}</td></tr>`).join('');$('#patTable').innerHTML='<tr><th>Movimiento</th><th class="num">Capital</th><th class="num">Utilidades retenidas</th><th class="num">Total</th></tr>'+rows;}$('#addPat').onclick=()=>{if(pati<patOps.length)pati++;renderPat();};$('#resetPat').onclick=()=>{pati=1;renderPat();};renderPat();
+const cash=[['Utilidad neta',63000,'Operación'],['Depreciación',18000,'Operación: ajuste sin efectivo'],['Aumento de cuentas por cobrar',-6000,'Operación'],['Compra de equipo',-45000,'Inversión'],['Préstamo recibido',30000,'Financiamiento'],['Dividendos pagados',-12000,'Financiamiento']];let cashi=0;function renderCash(){let rows=cash.slice(0,cashi).map(r=>`<tr><td>${r[0]}</td><td>${r[2]}</td><td class="num">${money(r[1])}</td></tr>`).join('');let total=cash.slice(0,cashi).reduce((a,r)=>a+r[1],0);$('#cashStep').innerHTML=`<table class="table"><tr><th>Flujo</th><th>Actividad</th><th class="num">Importe</th></tr>${rows}<tr class="total"><td colspan="2">Cambio neto acumulado</td><td class="num">${money(total)}</td></tr></table>`;}$('#nextCash').onclick=()=>{if(cashi<cash.length)cashi++;renderCash();};$('#resetCash').onclick=()=>{cashi=0;renderCash();};renderCash();
+const notes=[['Declaración explícita de cumplimiento NIIF para PYMES','Notas'],['Caja y Bancos L. 85,000','Cuerpo'],['Vida útil estimada de equipo de reparto','Notas'],['Ventas L. 320,000','Cuerpo'],['Base de medición de inventarios','Notas'],['Cuentas por pagar L. 38,000','Cuerpo']];let ns=0,nd={};$('#notesQuiz').innerHTML=notes.map((n,i)=>`<div class="item"><strong>${n[0]}</strong><div class="options"><button class="opt" data-i="${i}" data-a="Notas">Notas</button><button class="opt" data-i="${i}" data-a="Cuerpo">Cuerpo del estado</button></div></div>`).join('');$('#notesQuiz').onclick=e=>{let b=e.target.closest('button');if(!b||nd[b.dataset.i])return;let ok=notes[b.dataset.i][1]===b.dataset.a;b.classList.add(ok?'correct':'wrong');nd[b.dataset.i]=1;if(ok)ns++;$('#notesScore').textContent=ns+' / 6';};
+const questions=[
+{q:'¿Dónde se presenta Caja y Bancos?',a:['Estado de situación financiera','Estado de resultados','Notas solamente'],ok:0,ref:'Sección 4, partidas mínimas.'},
+{q:'¿La compra de equipo al contado es flujo de?',a:['Operación','Inversión','Financiamiento'],ok:1,ref:'Sección 7, actividades de inversión.'},
+{q:'Préstamo bancario con vencimiento a 9 meses:',a:['Corriente','No corriente','Patrimonio'],ok:0,ref:'Sección 4, criterio de 12 meses.'},
+{q:'La depreciación en método indirecto:',a:['Se suma como ajuste sin efectivo','Se clasifica siempre como financiamiento','No existe'],ok:0,ref:'Sección 7, método indirecto.'},
+{q:'Ventas L. 320,000 menos costo L.185,000 =',a:['L.135,000','L.63,000','L.505,000'],ok:0,ref:'Sección 5, desempeño financiero.'},
+{q:'Las políticas contables se revelan en:',a:['Notas','Patrimonio','Flujo de efectivo'],ok:0,ref:'Sección 8, párrs. 8.2-8.6.'},
+{q:'El estado que muestra dividendos y emisiones de acciones es:',a:['Cambios en patrimonio','Flujos exclusivamente','Situación financiera únicamente'],ok:0,ref:'Sección 6.'},
+{q:'El método directo presenta:',a:['Cobros y pagos brutos','Utilidad neta ajustada','Solo saldos de balance'],ok:0,ref:'Sección 7.'},
+{q:'Inventarios de una distribuidora normalmente son:',a:['Corrientes','No corrientes','Patrimonio'],ok:0,ref:'Sección 4.'},
+{q:'Un conjunto completo incluye notas:',a:['Sí','No','Solo si hay pérdidas'],ok:0,ref:'Sección 3.'},
+{q:'La hipótesis de negocio en marcha se evalúa al preparar EEFF:',a:['Sí','No','Solo en auditoría externa'],ok:0,ref:'Sección 3, negocio en marcha.'},
+{q:'Gastos por naturaleza vs función corresponde a:',a:['Estado de resultados','Estado de situación','Notas exclusivamente'],ok:0,ref:'Sección 5.'}
+];let gi=0,gs=0,answered=false;function renderGame(){if(gi>=questions.length){let pct=Math.round(gs/questions.length*100);$('#gameArea').innerHTML='<h3>Resultado final</h3><p>Respuestas correctas: '+gs+' de '+questions.length+'</p>';$('#gameResult').textContent=pct+'%';$('#gameBar').style.width='100%';if(pct>=70)confetti();return;}let q=questions[gi];answered=false;$('#gameArea').innerHTML=`<div class="item"><h3>${gi+1}. ${q.q}</h3><div class="options">${q.a.map((x,i)=>`<button class="opt gameOpt" data-i="${i}">${x}</button>`).join('')}</div><div id="fb" class="notice" style="display:none;margin-top:12px"></div></div>`;$('#gameBar').style.width=(gi/questions.length*100)+'%';$('#gameResult').textContent='';}
+$('#gameArea').onclick=e=>{let b=e.target.closest('.gameOpt');if(!b||answered)return;answered=true;let q=questions[gi],ok=Number(b.dataset.i)===q.ok;b.classList.add(ok?'correct':'wrong');if(ok)gs++;$('#fb').style.display='block';$('#fb').innerHTML=(ok?'Correcto. ':'Revise la clasificación. ')+'Referencia: '+q.ref;};$('#nextGame').onclick=()=>{if(!answered&&gi<questions.length)return;gi++;renderGame();};$('#resetGame').onclick=()=>{gi=0;gs=0;renderGame();};renderGame();
+function confetti(){const c=$('#confetti');c.innerHTML='';for(let i=0;i<80;i++){let el=document.createElement('i');el.style.left=Math.random()*100+'vw';el.style.top='-30px';el.style.background=["#F4A811","#0D6B8C","#C0392B","#1A8A4A","#8E44AD"][i%5];el.style.animationDelay=(Math.random()*.5)+'s';c.appendChild(el);}setTimeout(()=>c.innerHTML='',2200)}
+</script>
+</body>
+</html>

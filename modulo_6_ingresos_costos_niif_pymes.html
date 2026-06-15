@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 6 — Ingresos y Costos | NIIF PYMES 2025</title>
+<style>
+:root{
+  --gold:#F4A811;--dark:#1B2638;--bg:#F5F7FA;--activo:#0D6B8C;--pasivo:#C0392B;
+  --patrim:#1A8A4A;--ingreso:#E67E22;--gasto:#8E44AD;--white:#fff;--muted:#607085;
+  --shadow:0 10px 30px rgba(27,38,56,.12);--radius:22px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark);font-size:16px;line-height:1.55}
+header{background:linear-gradient(135deg,var(--dark),#263a58);color:#fff;padding:28px 18px 22px;position:sticky;top:0;z-index:5;box-shadow:var(--shadow)}
+.wrap{max-width:1180px;margin:0 auto}
+.badge{display:inline-block;background:var(--gold);color:var(--dark);padding:8px 14px;border-radius:999px;font-weight:700;margin-bottom:10px}
+h1{margin:0;font-size:clamp(28px,5vw,54px);line-height:1.05}
+.subtitle{margin:10px 0 0;color:#dbe5f3;font-size:clamp(16px,2.2vw,21px)}
+nav{background:#fff;box-shadow:var(--shadow);position:sticky;top:137px;z-index:4}
+.tabs{display:flex;gap:8px;overflow:auto;padding:10px 12px;scrollbar-width:thin}
+.tab{border:0;background:#edf2f8;color:var(--dark);min-height:48px;padding:10px 14px;border-radius:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.25s}
+.tab.active,.tab:hover{background:var(--gold);transform:translateY(-1px)}
+main{padding:24px 14px 40px}
+.panel{display:none;animation:fade .35s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{background:#fff;border-radius:var(--radius);padding:22px;margin:16px 0;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+h2{font-size:clamp(25px,4vw,40px);margin:0 0 12px}
+h3{margin:0 0 10px;font-size:22px}
+.ref{font-size:14px;color:var(--muted);font-weight:700}
+.kpi{border-left:7px solid var(--ingreso);padding:14px;background:#fff8f1;border-radius:16px}
+.kpi strong{display:block;font-size:24px}
+ul{padding-left:20px}
+li{margin:7px 0}
+.btn{min-height:48px;border:0;border-radius:14px;background:var(--dark);color:#fff;padding:12px 16px;font-weight:700;cursor:pointer;transition:.2s;font-size:16px}
+.btn:hover{transform:translateY(-1px);opacity:.95}
+.btn.gold{background:var(--gold);color:var(--dark)}
+.btn.ingreso{background:var(--ingreso)}
+.btn.gasto{background:var(--gasto)}
+.btn.activo{background:var(--activo)}
+.btn.pasivo{background:var(--pasivo)}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;background:#eef3f8;color:var(--dark)}
+.choice.correct{background:#dff5e8;border:2px solid var(--patrim)}
+.choice.wrong{background:#fde7e4;border:2px solid var(--pasivo)}
+.checklist label{display:flex;gap:10px;align-items:flex-start;padding:10px;background:#f1f5f9;border-radius:12px;margin:8px 0}
+input[type=checkbox],input[type=radio]{width:22px;height:22px;accent-color:var(--activo)}
+.result{padding:14px;border-radius:14px;background:#f8fafc;margin-top:12px;font-weight:700}
+.table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px}
+.table th,.table td{padding:12px;border-bottom:1px solid #e5edf5;text-align:left}
+.table th{background:#eef3f8}
+.amount{text-align:right;font-variant-numeric:tabular-nums}
+.progressbox{height:20px;background:#e8eef5;border-radius:999px;overflow:hidden;margin:10px 0}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--ingreso));transition:width .7s ease}
+.journal{font-family:Consolas,monospace;background:#0f172a;color:#e2e8f0;border-radius:16px;padding:16px;overflow:auto}
+footer{background:var(--dark);color:#fff;text-align:center;padding:24px}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:99}
+.confetti span{position:absolute;top:-20px;width:10px;height:18px;background:var(--gold);animation:fall 2.2s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.3}}
+.small{font-size:14px;color:var(--muted)}
+@media(max-width:720px){header{position:relative}nav{top:0}.card{padding:16px}.tabs{padding:8px}.tab{font-size:14px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="badge">NIIF PYMES 2025 · Secciones 23, 24, 25 y 26</div>
+    <h1>Módulo 6 — Ingresos y Costos</h1>
+    <p class="subtitle">Reconocimiento de Ingresos · Subvenciones · Costos por Préstamos · Pagos Basados en Acciones</p>
+  </div>
+</header>
+<nav><div class="tabs wrap" id="tabs"></div></nav>
+<main class="wrap">
+<section class="panel active" id="p0">
+  <h2>📘 Ingresos de actividades ordinarias</h2>
+  <div class="grid">
+    <div class="card"><h3>Concepto</h3><p>Los ingresos de actividades ordinarias son flujos brutos de beneficios económicos recibidos o por recibir por la entidad en el curso normal de sus operaciones.</p><p class="ref">Referencia: Sección 23, párr. 23.1–23.3</p></div>
+    <div class="card"><h3>Medición</h3><p>Se miden al valor razonable de la contraprestación recibida o por recibir. Descuentos comerciales y rebajas reducen el ingreso. Si el pago diferido contiene financiamiento significativo, se descuenta a valor presente.</p><p class="ref">Referencia: párr. 23.3–23.5</p></div>
+  </div>
+  <div class="card">
+    <h3>Mapa interactivo: 5 criterios para venta de bienes</h3>
+    <p>Marque los criterios que se cumplen. El ingreso se reconoce solo si se cumplen todos.</p>
+    <div class="checklist" id="criteria">
+      <label><input type="checkbox"> Transferencia de riesgos y beneficios al comprador.</label>
+      <label><input type="checkbox"> Sin control ni gestión continua sobre los bienes.</label>
+      <label><input type="checkbox"> Importe del ingreso medible con fiabilidad.</label>
+      <label><input type="checkbox"> Probable flujo de beneficios económicos.</label>
+      <label><input type="checkbox"> Costos incurridos o por incurrir medibles con fiabilidad.</label>
+    </div>
+    <button class="btn ingreso" onclick="evalCriteria()">Evaluar reconocimiento</button>
+    <div id="criteriaResult" class="result">Resultado pendiente.</div>
+  </div>
+  <div class="card">
+    <h3>Servicios, intereses, regalías y dividendos</h3>
+    <ul>
+      <li>Servicios: método del porcentaje de terminación, si el resultado puede estimarse con fiabilidad.</li>
+      <li>Grado de terminación: inspecciones, proporción de servicios realizados o proporción de costos incurridos.</li>
+      <li>Intereses: método del interés efectivo.</li>
+      <li>Regalías: base de acumulación conforme al acuerdo.</li>
+      <li>Dividendos: cuando se establece el derecho a recibirlos.</li>
+    </ul>
+    <p class="ref">Referencia: párr. 23.14–23.16 y 23.28–23.30</p>
+  </div>
+</section>
+
+<section class="panel" id="p1">
+  <h2>🔨 Contratos de construcción y servicios</h2>
+  <div class="card"><p>Los contratos de construcción requieren estimar ingresos, costos y resultado. Si el resultado puede estimarse con fiabilidad, se reconoce según avance. Si existe pérdida esperada, se reconoce inmediatamente en su totalidad.</p><p class="ref">Referencia: Sección 23, párr. 23.17–23.27</p></div>
+  <div class="card">
+    <h3>Simulación: bodega para Comercial del Norte, S.A.</h3>
+    <div class="grid">
+      <div class="kpi"><span>Precio del contrato</span><strong>L 2,000,000</strong></div>
+      <div class="kpi"><span>Costos estimados</span><strong>L 1,600,000</strong></div>
+      <div class="kpi"><span>Ganancia esperada</span><strong>L 400,000</strong></div>
+    </div>
+    <p>Avance: <strong id="pctText">0%</strong></p>
+    <input type="range" min="0" max="100" value="40" id="rangeBuild" oninput="calcBuild()" style="width:100%;accent-color:#E67E22">
+    <div class="progressbox"><div class="bar" id="buildBar"></div></div>
+    <table class="table">
+      <tr><th>Concepto</th><th class="amount">Importe</th></tr>
+      <tr><td>Ingresos a reconocer</td><td class="amount" id="buildRev">L 0</td></tr>
+      <tr><td>Costos a reconocer</td><td class="amount" id="buildCost">L 0</td></tr>
+      <tr><td>Ganancia reconocida</td><td class="amount" id="buildProfit">L 0</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="panel" id="p2">
+  <h2>🏛️ Subvenciones del gobierno</h2>
+  <div class="card"><p>Una subvención del gobierno es transferencia de recursos a una entidad a cambio del cumplimiento pasado o futuro de condiciones relacionadas con sus actividades de operación.</p><p class="ref">Referencia: Sección 24, párr. 24.1–24.6</p></div>
+  <div class="card">
+    <h3>Simulación: subvención de L 120,000 para maquinaria</h3>
+    <p>Vida útil: 5 años. Costo de maquinaria: L 480,000.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Opción A — Ingreso diferido</h3>
+        <p>Ingreso anual reconocido: <strong>L 24,000</strong></p>
+        <p>Pasivo pendiente después del año 1: <strong>L 96,000</strong></p>
+      </div>
+      <div class="card">
+        <h3>Opción B — Reducción del activo</h3>
+        <p>Activo neto inicial: <strong>L 360,000</strong></p>
+        <p>Depreciación anual reducida: <strong>L 72,000</strong></p>
+      </div>
+    </div>
+    <button class="btn activo" onclick="grantView('A')">Ver efecto opción A</button>
+    <button class="btn activo" onclick="grantView('B')">Ver efecto opción B</button>
+    <div id="grantResult" class="result">Seleccione una opción.</div>
+  </div>
+</section>
+
+<section class="panel" id="p3">
+  <h2>💰 Costos por préstamos</h2>
+  <div class="card">
+    <p>Son intereses y otros costos incurridos en conexión con fondos tomados prestados. Bajo NIIF para PYMES, todos los costos por préstamos se reconocen como gasto en el período en que se incurren; no se capitalizan.</p>
+    <p class="ref">Referencia: Sección 25, párr. 25.1–25.3</p>
+  </div>
+  <div class="card">
+    <h3>Simulación comparativa</h3>
+    <p>Préstamo: L 800,000 · Tasa: 10% anual · Construcción: 18 meses</p>
+    <table class="table">
+      <tr><th>Tratamiento</th><th>Año 1</th><th>Año 2</th><th>Total</th></tr>
+      <tr><td>NIIF PYMES: gasto</td><td>L 80,000</td><td>L 40,000</td><td>L 120,000</td></tr>
+      <tr><td>NIIF completas: comparación didáctica</td><td colspan="3">Los intereses podrían capitalizarse en activos aptos según NIC 23.</td></tr>
+    </table>
+    <p class="small">Comparación incluida solo para fines pedagógicos.</p>
+  </div>
+</section>
+
+<section class="panel" id="p4">
+  <h2>📈 Pagos basados en acciones</h2>
+  <div class="card"><p>Son transacciones en las que la entidad recibe bienes o servicios a cambio de instrumentos de patrimonio, o incurre en obligaciones basadas en el precio o valor de sus acciones.</p><p class="ref">Referencia: Sección 26, párr. 26.1–26.18</p></div>
+  <div class="card">
+    <h3>Simulación: opciones al director</h3>
+    <p>1,000 opciones · Valor razonable por opción: L 15 · Servicio requerido: 3 años</p>
+    <button class="btn gasto" onclick="optionYear(1)">Año 1</button>
+    <button class="btn gasto" onclick="optionYear(2)">Año 2</button>
+    <button class="btn gasto" onclick="optionYear(3)">Año 3</button>
+    <button class="btn gold" onclick="exerciseOptions()">Ejercicio</button>
+    <pre id="optionJournal" class="journal">Seleccione un año.</pre>
+  </div>
+</section>
+
+<section class="panel" id="p5">
+  <h2>🎯 Mini-juego: 12 preguntas</h2>
+  <div class="card">
+    <div id="quizBox"></div>
+    <button class="btn gold" id="nextBtn" onclick="nextQuestion()">Iniciar / siguiente</button>
+    <div id="scoreBox" class="result">Puntaje: 0/12</div>
+  </div>
+</section>
+</main>
+<footer>Herramienta desarrollada por Juan Carlos Reyes · Módulo 6 NIIF PYMES 2025</footer>
+<div class="confetti" id="confetti"></div>
+<script>
+const tabs=['📘 Ingresos','🔨 Construcción','🏛️ Subvenciones','💰 Préstamos','📈 Acciones','🎯 Mini-juego'];
+const tabsEl=document.getElementById('tabs');
+tabs.forEach((t,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' active':'');b.textContent=t;b.onclick=()=>showPanel(i);b.addEventListener('touchstart',()=>showPanel(i),{passive:true});tabsEl.appendChild(b)});
+function showPanel(i){document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));document.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',i===j));window.scrollTo({top:0,behavior:'smooth'});}
+function L(n){return 'L '+Math.round(n).toLocaleString('es-HN')}
+function evalCriteria(){const c=[...document.querySelectorAll('#criteria input')];const ok=c.every(x=>x.checked);document.getElementById('criteriaResult').textContent=ok?'Se reconoce el ingreso: los 5 criterios se cumplen.':'Se difiere el ingreso: falta al menos un criterio de reconocimiento.'}
+function calcBuild(){let pct=+document.getElementById('rangeBuild').value;document.getElementById('pctText').textContent=pct+'%';document.getElementById('buildBar').style.width=pct+'%';let rev=2000000*pct/100,cost=1600000*pct/100;document.getElementById('buildRev').textContent=L(rev);document.getElementById('buildCost').textContent='('+L(cost)+')';document.getElementById('buildProfit').textContent=L(rev-cost)}
+function grantView(x){document.getElementById('grantResult').textContent=x==='A'?'Opción A: se presenta un pasivo por ingreso diferido y se reconoce L 24,000 anuales en resultados.':'Opción B: la subvención reduce el importe en libros del activo; la depreciación anual baja a L 72,000.'}
+function optionYear(y){let gasto=5000*y;document.getElementById('optionJournal').textContent=`Año ${y}\nDEBE: Gasto por remuneración      ${L(5000)}\nHABER: Reserva por opciones        ${L(5000)}\nAcumulado reconocido:              ${L(gasto)}`}
+function exerciseOptions(){document.getElementById('optionJournal').textContent=`Ejercicio de opciones\nDEBE: Reserva por opciones         L 15,000\nDEBE: Efectivo                     L 50,000\nHABER: Capital social              L 65,000`}
+calcBuild();
+
+const quiz=[
+{q:'Venta con riesgos y beneficios transferidos, cobro probable y costos medibles. ¿Reconoce ingreso?',a:['Sí','No'],c:0,f:'Sección 23: deben cumplirse los criterios de reconocimiento.'},
+{q:'Precio L 1,500,000 y avance 35%. ¿Ingreso?',a:['L 525,000','L 350,000','L 1,500,000','L 975,000'],c:0,f:'1,500,000 × 35% = 525,000.'},
+{q:'Contrato precio L 500,000 y costos estimados L 620,000. La pérdida esperada se reconoce:',a:['Al final','Inmediatamente','Solo si se factura','Nunca'],c:1,f:'La pérdida esperada se reconoce inmediatamente.'},
+{q:'Subvención L 90,000, vida útil 3 años, ingreso diferido anual:',a:['L 30,000','L 45,000','L 90,000','L 10,000'],c:0,f:'90,000 / 3 = 30,000.'},
+{q:'Bajo NIIF PYMES, intereses de construcción son:',a:['Costo del activo','Gasto del período','ORI','Depende del monto'],c:1,f:'Sección 25: todos los costos por préstamos van a gasto.'},
+{q:'Préstamo L 500,000, tasa 8%, 8 meses. Interés:',a:['L 40,000','L 26,667','L 33,333','L 20,000'],c:1,f:'500,000 × 8% × 8/12 = 26,667.'},
+{q:'Opciones sobre acciones entregadas a empleados:',a:['Patrimonio','Efectivo','Mixto'],c:0,f:'Transacción liquidada con instrumentos de patrimonio.'},
+{q:'Derechos de revaluación de acciones pagaderos en efectivo:',a:['Patrimonio','Efectivo','Mixto'],c:1,f:'SAR pagadero en efectivo: liquidada en efectivo.'},
+{q:'La entidad puede liquidar en efectivo o acciones:',a:['Patrimonio','Efectivo','Mixto'],c:2,f:'Existe alternativa de liquidación.'},
+{q:'1,500 opciones × L 12 / 4 años. Gasto anual:',a:['L 18,000','L 4,500','L 6,000','L 12,000'],c:1,f:'18,000 / 4 = 4,500.'},
+{q:'Ingreso por dividendos se reconoce cuando:',a:['Se cobra','Se establece el derecho a recibirlos','Se compra la acción','Al cierre fiscal'],c:1,f:'Se reconoce cuando surge el derecho a recibir el dividendo.'},
+{q:'Costos incurridos L 180,000 / costos totales L 450,000. Avance:',a:['35%','40%','45%','50%'],c:1,f:'180,000 / 450,000 = 40%.'}
+];
+let qi=-1,score=0,answered=false;
+function nextQuestion(){if(qi>=quiz.length-1){finishQuiz();return} qi++;answered=false;renderQ();}
+function renderQ(){const q=quiz[qi];let html=`<h3>Pregunta ${qi+1} de ${quiz.length}</h3><p><strong>${q.q}</strong></p>`;q.a.forEach((x,i)=>html+=`<button class="btn choice" onclick="answer(${i})">${x}</button>`);html+=`<div id="fb" class="result">Seleccione una respuesta.</div>`;document.getElementById('quizBox').innerHTML=html;document.getElementById('nextBtn').textContent=qi===quiz.length-1?'Finalizar':'Siguiente';}
+function answer(i){if(answered)return;answered=true;const q=quiz[qi],bs=[...document.querySelectorAll('.choice')];bs.forEach((b,j)=>{if(j===q.c)b.classList.add('correct'); if(j===i&&i!==q.c)b.classList.add('wrong')});if(i===q.c)score++;document.getElementById('fb').textContent=(i===q.c?'Correcto. ':'Incorrecto. ')+q.f;document.getElementById('scoreBox').textContent=`Puntaje: ${score}/${quiz.length}`;}
+function finishQuiz(){document.getElementById('quizBox').innerHTML=`<h3>Resultado final</h3><p>Obtuvo <strong>${score}/${quiz.length}</strong> respuestas correctas.</p><p>${score/quiz.length>=.7?'Dominio aceptable del módulo.':'Conviene repasar las secciones con error.'}</p>`;document.getElementById('nextBtn').disabled=true;if(score/quiz.length>=.7)confetti();}
+function confetti(){const c=document.getElementById('confetti');c.innerHTML='';for(let i=0;i<90;i++){let s=document.createElement('span');s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*1+'s';s.style.background=['#F4A811','#0D6B8C','#E67E22','#1A8A4A','#8E44AD'][i%5];c.appendChild(s)}setTimeout(()=>c.innerHTML='',3200)}
+</script>
+</body>
+</html>
