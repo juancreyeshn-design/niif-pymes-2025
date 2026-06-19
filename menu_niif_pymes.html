@@ -878,7 +878,7 @@ requestAnimationFrame(() =>
 
 <script>
 (function () {
-  var ANTHROPIC_API_KEY = "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";
+  var ANTHROPIC_API_KEY = "protected";
 
   var KB = {
     "que son niif pymes": "Las <strong>NIIF para PYMES</strong> son normas internacionales para PYMES sin obligacion publica de rendir cuentas. 3a edicion 2025: 35 secciones, emitida por el IASB.",
@@ -966,13 +966,10 @@ requestAnimationFrame(() =>
 
   async function askClaude(msg) {
     hist.push({ role: "user", content: msg });
-    var r = await fetch("https://api.anthropic.com/v1/messages", {
+    var r = await fetch("https://niif-pymes-proxy.juancreyes-hn.workers.dev", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ model: "claude-haiku-4-5", max_tokens: 600, system: SYSTEM_PROMPT, messages: hist.slice(-10) })
     });
