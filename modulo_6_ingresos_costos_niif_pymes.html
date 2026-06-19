@@ -227,5 +227,6 @@ function answer(i){if(answered)return;answered=true;const q=quiz[qi],bs=[...docu
 function finishQuiz(){document.getElementById('quizBox').innerHTML=`<h3>Resultado final</h3><p>Obtuvo <strong>${score}/${quiz.length}</strong> respuestas correctas.</p><p>${score/quiz.length>=.7?'Dominio aceptable del módulo.':'Conviene repasar las secciones con error.'}</p>`;document.getElementById('nextBtn').disabled=true;if(score/quiz.length>=.7)confetti();}
 function confetti(){const c=document.getElementById('confetti');c.innerHTML='';for(let i=0;i<90;i++){let s=document.createElement('span');s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*1+'s';s.style.background=['#F4A811','#0D6B8C','#E67E22','#1A8A4A','#8E44AD'][i%5];c.appendChild(s)}setTimeout(()=>c.innerHTML='',3200)}
 </script>
+<script src="niif-chat-widget.js"></script>
 </body>
 </html>
