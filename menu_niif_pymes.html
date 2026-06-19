@@ -600,5 +600,453 @@ requestAnimationFrame(() =>
   , 80)
 );
 </script>
+
+
+<!-- ===== INICIO CHAT FLOTANTE NIIF PYMES ===== -->
+<style>
+/* ---- CHAT FLOTANTE NIIF PYMES ---- */
+#niif-chat-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C62828, #E53935);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  box-shadow: 0 4px 20px rgba(198,40,40,0.45);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s, box-shadow .2s;
+}
+#niif-chat-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(198,40,40,0.6); }
+#niif-chat-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  background: #F4A811;
+  color: #1B2638;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#niif-chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  width: 360px;
+  max-height: 520px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 9998;
+  overflow: hidden;
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+}
+#niif-chat-window.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+#niif-chat-header {
+  background: linear-gradient(135deg, #C62828, #B71C1C);
+  color: #fff;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 18px 18px 0 0;
+}
+#niif-chat-header .niif-chat-title {
+  display: flex; align-items: center; gap: 10px;
+}
+#niif-chat-header .niif-chat-title .niif-avatar {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+#niif-chat-header .niif-chat-title h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+#niif-chat-header .niif-chat-title p {
+  margin: 0;
+  font-size: 11px;
+  opacity: 0.85;
+}
+#niif-close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.85;
+}
+#niif-close-btn:hover { opacity: 1; }
+#niif-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #F9F4F4;
+  min-height: 200px;
+  max-height: 300px;
+}
+#niif-chat-messages::-webkit-scrollbar { width: 5px; }
+#niif-chat-messages::-webkit-scrollbar-track { background: transparent; }
+#niif-chat-messages::-webkit-scrollbar-thumb { background: #C62828; border-radius: 3px; }
+.niif-msg-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+.niif-msg-row.user { flex-direction: row-reverse; }
+.niif-msg-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C62828, #E53935);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.niif-bubble {
+  max-width: 78%;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.niif-bubble.bot {
+  background: #fff;
+  color: #1B2638;
+  border: 1px solid #e5d5d5;
+  border-bottom-left-radius: 4px;
+}
+.niif-bubble.user {
+  background: linear-gradient(135deg, #C62828, #E53935);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.niif-typing {
+  display: none;
+  align-items: flex-end;
+  gap: 8px;
+}
+.niif-typing .niif-dots {
+  background: #fff;
+  border: 1px solid #e5d5d5;
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  padding: 10px 14px;
+  display: flex; gap: 4px;
+}
+.niif-typing .niif-dots span {
+  width: 7px; height: 7px;
+  background: #C62828;
+  border-radius: 50%;
+  animation: niifBounce 1.2s infinite ease-in-out;
+}
+.niif-typing .niif-dots span:nth-child(2) { animation-delay: .2s; }
+.niif-typing .niif-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes niifBounce {
+  0%,80%,100% { transform: translateY(0); }
+  40% { transform: translateY(-7px); }
+}
+#niif-chat-suggestions {
+  padding: 8px 12px 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: #F9F4F4;
+  border-top: 1px solid #f0e0e0;
+}
+.niif-suggestion {
+  background: #fff;
+  border: 1px solid #C62828;
+  color: #C62828;
+  border-radius: 20px;
+  padding: 4px 11px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.niif-suggestion:hover { background: #C62828; color: #fff; }
+#niif-chat-input-area {
+  display: flex;
+  padding: 10px 12px;
+  gap: 8px;
+  border-top: 1px solid #f0e0e0;
+  background: #fff;
+}
+#niif-chat-input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 22px;
+  padding: 9px 14px;
+  font-size: 13px;
+  outline: none;
+  font-family: inherit;
+  color: #1B2638;
+}
+#niif-chat-input:focus { border-color: #C62828; }
+#niif-chat-send {
+  background: linear-gradient(135deg, #C62828, #E53935);
+  border: none;
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform .15s;
+}
+#niif-chat-send:hover { transform: scale(1.1); }
+@media (max-width: 420px) {
+  #niif-chat-window { width: calc(100vw - 20px); right: 10px; }
+}
+</style>
+
+<!-- Botón flotante -->
+<button id="niif-chat-toggle" title="Asistente NIIF para PYMES">
+  📚
+  <span id="niif-chat-badge">1</span>
+</button>
+
+<!-- Ventana de chat -->
+<div id="niif-chat-window">
+  <div id="niif-chat-header">
+    <div class="niif-chat-title">
+      <div class="niif-avatar">📚</div>
+      <div>
+        <h3>Asistente NIIF PYMES</h3>
+        <p>Basado en IFRS for SMEs 2025</p>
+      </div>
+    </div>
+    <button id="niif-close-btn" title="Cerrar">✕</button>
+  </div>
+
+  <div id="niif-chat-messages">
+    <!-- mensaje inicial -->
+  </div>
+
+  <div class="niif-typing" id="niif-typing">
+    <div class="niif-msg-avatar">📚</div>
+    <div class="niif-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div id="niif-chat-suggestions">
+    <button class="niif-suggestion" data-msg="¿Qué son las NIIF para PYMES?">¿Qué son NIIF PYMES?</button>
+    <button class="niif-suggestion" data-msg="Sección 1">Sección 1</button>
+    <button class="niif-suggestion" data-msg="Sección 13 Inventarios">Inventarios</button>
+    <button class="niif-suggestion" data-msg="Sección 17 PPE">PPE</button>
+    <button class="niif-suggestion" data-msg="Estados Financieros">EE.FF.</button>
+    <button class="niif-suggestion" data-msg="Sección 20 Arrendamientos">Arrendamientos</button>
+    <button class="niif-suggestion" data-msg="Sección 29 Impuesto diferido">Impuesto Diferido</button>
+    <button class="niif-suggestion" data-msg="Diferencia NIIF PYMES vs NIIF completas">PYMES vs Completas</button>
+  </div>
+
+  <div id="niif-chat-input-area">
+    <input type="text" id="niif-chat-input" placeholder="Pregunta sobre NIIF para PYMES..." autocomplete="off" />
+    <button id="niif-chat-send" title="Enviar">➤</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var KB = {
+    "que son niif pymes": "Las <strong>NIIF para PYMES</strong> (IFRS for SMEs) son normas internacionales de contabilidad diseñadas específicamente para Pequeñas y Medianas Empresas que no tienen obligación pública de rendir cuentas. La edición 2025 (3ra edición) consta de 35 secciones y fue emitida por el IASB. Son más simples que las NIIF completas.",
+    "que es niif pymes": "Las <strong>NIIF para PYMES</strong> son normas contables internacionales para entidades sin obligación pública de rendir cuentas. Edición 2025: 35 secciones + apéndices. Más simples y con menos revelaciones que las NIIF completas.",
+    "seccion 1": "<strong>Sección 1 – Pequeñas y Medianas Empresas:</strong><br>Define quiénes PUEDEN aplicar las NIIF para PYMES. Son entidades que:<br>• No tienen obligación pública de rendir cuentas<br>• Publican estados financieros de propósito general<br>No incluye bancos, aseguradoras ni empresas con valores cotizados.",
+    "seccion 2": "<strong>Sección 2 – Conceptos y Principios Generales:</strong><br>Establece objetivo de los EE.FF., características cualitativas (relevancia, fiabilidad, comparabilidad, comprensibilidad) y define: activo, pasivo, patrimonio, ingresos y gastos. Principios clave: devengo y negocio en marcha.",
+    "seccion 3": "<strong>Sección 3 – Presentación de Estados Financieros:</strong><br>Conjunto completo: Estado de Situación Financiera, Estado de Resultado Integral, Estado de Cambios en el Patrimonio, Estado de Flujos de Efectivo y Notas. Presentación mínima anual.",
+    "seccion 4": "<strong>Sección 4 – Estado de Situación Financiera (Balance):</strong><br>Presenta activos, pasivos y patrimonio clasificados en corriente/no corriente. Mínimo incluye: efectivo, cuentas por cobrar, inventarios, PPE, activos intangibles, cuentas por pagar, préstamos, patrimonio.",
+    "seccion 5": "<strong>Sección 5 – Estado de Resultado Integral:</strong><br>Puede presentarse en un solo estado o en dos. Incluye: ingresos, costos, gastos, otros ingresos/gastos, impuesto, resultado del período y otro resultado integral (ORI).",
+    "seccion 6": "<strong>Sección 6 – Estado de Cambios en el Patrimonio:</strong><br>Muestra el movimiento entre dos fechas: resultado del período, ORI, aportes de capital, distribuciones (dividendos) y transferencias entre componentes.",
+    "seccion 7": "<strong>Sección 7 – Estado de Flujos de Efectivo:</strong><br>🔵 <b>Operación:</b> actividad principal (método directo o indirecto)<br>🟡 <b>Inversión:</b> compra/venta activos LP<br>🟢 <b>Financiación:</b> préstamos, capital, dividendos pagados",
+    "seccion 8": "<strong>Sección 8 – Notas a los EE.FF.:</strong><br>Revelan: base de preparación, políticas contables, incertidumbres, contingencias y demás información requerida por las NIIF PYMES. Son parte integral de los estados financieros.",
+    "seccion 9": "<strong>Sección 9 – EE.FF. Consolidados y Separados:</strong><br>Una controladora con subsidiarias presenta EE.FF. consolidados. Control = poder de dirigir las políticas financieras y operativas para obtener beneficios. Incluye consolidación línea a línea eliminando intercompañías.",
+    "seccion 10": "<strong>Sección 10 – Políticas, Estimaciones y Errores:</strong><br>• Políticas: consistencia, cambios retroactivos<br>• Estimaciones: cambios prospectivos<br>• Errores materiales de períodos anteriores: corrección retroactiva con reexpresión comparativos",
+    "seccion 11": "<strong>Sección 11 – Instrumentos Financieros:</strong><br>Activos/pasivos financieros básicos: efectivo, cuentas por cobrar/pagar, préstamos, inversiones en deuda. Medición inicial: al costo (incluye costos de transacción). Posterior: costo amortizado con tasa de interés efectiva. Requiere prueba de deterioro.",
+    "seccion 12": "<strong>Sección 12 – Medición a Valor Razonable:</strong><br>Valor Razonable = precio de venta en transacción ordenada entre participantes del mercado a la fecha de medición. Jerarquía: Nivel 1 (precios cotizados) > Nivel 2 (datos observables) > Nivel 3 (datos no observables).",
+    "seccion 13": "<strong>Sección 13 – Inventarios:</strong><br>Medición: al menor entre costo y valor neto realizable (VNR).<br>Métodos de costeo: FIFO (PEPS) o Costo Promedio Ponderado.<br>❌ NO permite LIFO (UEPS).<br>VNR = precio estimado de venta menos costos para completar y vender.",
+    "seccion 14": "<strong>Sección 14 – Inversiones en Asociadas:</strong><br>Asociada = influencia significativa (generalmente 20%-50% de votos). Método contable: Participación patrimonial (o equivalencia). Se reconoce la porción del resultado y el VL se ajusta.",
+    "seccion 15": "<strong>Sección 15 – Negocios Conjuntos:</strong><br>Tipos: operaciones conjuntas, activos controlados conjuntamente y entidades controladas conjuntamente. Cada partícipe reconoce su parte proporcional de activos, pasivos, ingresos y gastos.",
+    "seccion 16": "<strong>Sección 16 – Propiedades de Inversión:</strong><br>Mantenidas para obtener rentas o plusvalías (no uso propio). Si VR medible sin costo excesivo → VR con cambios en resultados. Si no → modelo de costo (como PPE, Sección 17).",
+    "seccion 17": "<strong>Sección 17 – Propiedades, Planta y Equipo (PPE):</strong><br>Reconocer cuando: beneficios futuros probables + costo medible. Modelo de medición: Costo histórico menos depreciación acumulada y deterioro. ❌ No permite modelo de revaluación. Depreciación: vida útil y método sistemático.",
+    "seccion 18": "<strong>Sección 18 – Activos Intangibles:</strong><br>Solo se reconocen si son separables o surgen de derechos contractuales/legales. Vida útil definida → amortización. No se reconocen intangibles generados internamente (excepto costos de desarrollo bajo criterios específicos).",
+    "seccion 19": "<strong>Sección 19 – Combinaciones de Negocios y Plusvalía:</strong><br>Método de adquisición obligatorio. Pasos: (1) Identificar adquirente, (2) Fecha de adquisición, (3) Medir activos/pasivos a VR, (4) Plusvalía = precio pagado − VN activos netos. Plusvalía: NO se amortiza, prueba deterioro anual.",
+    "seccion 20": "<strong>Sección 20 – Arrendamientos:</strong><br>🔵 <b>Financiero:</b> transfiere riesgos y beneficios → arrendatario reconoce activo + pasivo al menor entre VR y VPN pagos. Los pagos se dividen en capital e interés.<br>🟡 <b>Operativo:</b> cuotas como gasto lineal.",
+    "seccion 21": "<strong>Sección 21 – Provisiones y Contingencias:</strong><br>Provisión: obligación presente + salida probable + monto estimable → SE RECONOCE.<br>Contingencia posible → SOLO SE REVELA en notas.<br>Contingencia remota → NO se revela.",
+    "seccion 22": "<strong>Sección 22 – Pasivos y Patrimonio:</strong><br>Instrumento de pasivo: existe obligación de entregar efectivo o activos financieros. Instrumento de patrimonio: derecho residual. Trata acciones ordinarias/preferentes, dividendos, emisión de acciones y recompras.",
+    "seccion 23": "<strong>Sección 23 – Ingresos de Contratos con Clientes:</strong><br>Reconocer cuando (o a medida que) se satisfacen las obligaciones de desempeño. 5 pasos: (1) identificar contrato, (2) identificar obligaciones, (3) determinar precio, (4) asignar precio, (5) reconocer ingreso.",
+    "seccion 24": "<strong>Sección 24 – Subvenciones del Gobierno:</strong><br>Se reconocen cuando se cumplen las condiciones de desempeño adjuntas. Pueden presentarse como: (a) reducción del costo del activo, o (b) ingreso diferido que se reconoce al cumplir condiciones.",
+    "seccion 25": "<strong>Sección 25 – Costos por Préstamos:</strong><br>Todos los costos por préstamos (intereses) se reconocen como GASTO en el período en que se incurren. ❌ NIIF PYMES NO permite capitalizar costos por préstamos (a diferencia de NIIF completas).",
+    "seccion 26": "<strong>Sección 26 – Pagos Basados en Acciones:</strong><br>Transacciones donde la entidad recibe bienes/servicios a cambio de instrumentos de patrimonio. Se miden al valor razonable en la fecha de concesión. Liquidados en patrimonio: gasto + aumento en patrimonio.",
+    "seccion 27": "<strong>Sección 27 – Deterioro del Valor de los Activos:</strong><br>Importe recuperable = mayor entre: (1) VR menos costos de venta, y (2) Valor en uso (VPN flujos futuros). Si importe en libros > recuperable → pérdida por deterioro. Reversión posible salvo plusvalía.",
+    "seccion 28": "<strong>Sección 28 – Beneficios a los Empleados:</strong><br>• Corto plazo: salarios, vacaciones (reconocer al devengo)<br>• Post-empleo: aporte definido (cuota al fondo) vs beneficio definido (método unidad crédito proyectada)<br>• Terminación: reconocer cuando hay plan formal irrevocable",
+    "seccion 29": "<strong>Sección 29 – Impuesto a las Ganancias:</strong><br>Impuesto corriente: impuesto del período. Impuesto diferido: diferencias temporarias entre VL contable y base fiscal. Activo DT: VL < base fiscal. Pasivo DT: VL > base fiscal. Se usa tasa fiscal aprobada.",
+    "seccion 30": "<strong>Sección 30 – Conversión de Moneda Extranjera:</strong><br>Transacciones en ME → registrar al tipo de cambio de la fecha. Partidas monetarias → tipo de cierre. Partidas no monetarias → tipo histórico. Diferencias de cambio → resultados del período.",
+    "seccion 31": "<strong>Sección 31 – Hiperinflación:</strong><br>Cuando inflación acumulada de 3 años ≥ 100%, los EE.FF. deben reexpresarse con un índice de precios general. Afecta todos los montos no monetarios históricos. Aplicable en economías como Venezuela, Zimbabwe, etc.",
+    "seccion 32": "<strong>Sección 32 – Hechos Posteriores al Período:</strong><br>Entre la fecha de balance y autorización para publicar:<br>• <b>Ajustados:</b> evidencian condiciones existentes al cierre → ajustar EE.FF.<br>• <b>No ajustados:</b> condiciones nuevas → revelar en notas si son materiales.",
+    "seccion 33": "<strong>Sección 33 – Partes Relacionadas:</strong><br>Incluye: controladora, subsidiarias, asociadas, negocios conjuntos, personal clave y sus familiares cercanos. Revelar: naturaleza de la relación, tipo de transacción, montos y condiciones.",
+    "seccion 34": "<strong>Sección 34 – Actividades Especiales:</strong><br>• Agricultura: activos biológicos a VR o costo. Cosechas al VR.<br>• Actividades extractivas: exploración y evaluación de recursos minerales.<br>• Concesiones de servicios: contabilización del acuerdo.",
+    "seccion 35": "<strong>Sección 35 – Transición a NIIF para PYMES:</strong><br>Primera adopción: (1) Identificar fecha de transición (inicio del período comparativo), (2) Balance de apertura a esa fecha con NIIF PYMES retroactiva, (3) Aplicar exenciones opcionales, (4) Respetar excepciones obligatorias. Revelar la conciliación.",
+    "estados financieros": "Conjunto completo de <strong>Estados Financieros</strong> bajo NIIF PYMES:<br>1️⃣ Estado de Situación Financiera<br>2️⃣ Estado de Resultado Integral<br>3️⃣ Estado de Cambios en el Patrimonio<br>4️⃣ Estado de Flujos de Efectivo<br>5️⃣ Notas Explicativas<br>Presentación: al menos anual, con período comparativo.",
+    "valor razonable": "<strong>Valor Razonable (Sección 12):</strong> precio que se recibiría al vender un activo o pagaría al transferir un pasivo en una transacción ordenada entre participantes del mercado en la fecha de medición. Jerarquía: L1 precios cotizados > L2 datos observables > L3 estimaciones.",
+    "inventarios": "<strong>Inventarios (Sección 13):</strong> Medir al menor entre costo y VNR. Métodos: FIFO o Promedio Ponderado. ❌ NO LIFO. VNR = precio de venta estimado menos costos de terminación y venta.",
+    "ppe propiedades planta": "<strong>PPE - Sección 17:</strong> Costo histórico menos depreciación acumulada y deterioro. Vida útil estimada por la entidad. ❌ Sin modelo de revaluación en NIIF PYMES. Componentes significativos se deprecian por separado.",
+    "arrendamiento": "<strong>Arrendamientos (Sección 20):</strong><br>🔵 Financiero: transfiere riesgos/beneficios → activo + pasivo al menor entre VR y VPN.<br>🟡 Operativo: gasto lineal durante el plazo.",
+    "impuesto diferido": "<strong>Impuesto Diferido (Sección 29):</strong><br>• Activo DT: VL contable &lt; base fiscal (ej: provisión deducible en el futuro)<br>• Pasivo DT: VL contable &gt; base fiscal (ej: depreciación acelerada fiscal)<br>Medición: tasa fiscal vigente o aprobada.",
+    "deterioro": "<strong>Deterioro (Sección 27):</strong><br>Importe Recuperable = mayor entre:<br>(1) VR menos costos de disposición<br>(2) Valor en Uso = VPN de flujos futuros<br>Si Importe en libros &gt; Recuperable → pérdida por deterioro en resultados.",
+    "plusvalia": "<strong>Plusvalía / Goodwill (Sección 19):</strong> Surge en combinaciones de negocios = Precio pagado − Valor neto de activos identificables a VR. ❌ NO se amortiza bajo NIIF PYMES. ✅ Se evalúa por deterioro anualmente.",
+    "provision": "<strong>Provisión (Sección 21):</strong> Se reconoce cuando existe: (1) obligación presente (legal o implícita), (2) es probable la salida de recursos, (3) el monto puede estimarse fiablemente. Medir al mejor estimado del desembolso requerido.",
+    "partes relacionadas": "<strong>Partes Relacionadas (Sección 33):</strong> controladora, subsidiarias, asociadas, negocios conjuntos, gerentes clave y familiares cercanos. Revelar: naturaleza, tipo de transacción y montos. Criterio de precios de transferencia arm's length.",
+    "combinacion negocios": "<strong>Combinación de Negocios (Sección 19):</strong> Siempre por Método de Adquisición: (1) identificar adquirente, (2) fecha adquisición, (3) medir activos/pasivos identificables a VR, (4) Plusvalía = Contraprestación − VN activos netos.",
+    "diferencias": "<strong>NIIF PYMES vs NIIF Completas:</strong><br>• PPE: solo costo (sin revaluación en PYMES)<br>• Costos préstamos: gasto en PYMES (capitalización en NIIF completas)<br>• Inventarios: sin LIFO en ambas<br>• Plusvalía: sin amortización en ambas<br>• Revelaciones: menos en NIIF PYMES<br>• Investigación/Desarrollo: más flexible en NIIF completas",
+    "primera adopcion": "<strong>Primera Adopción - Sección 35:</strong><br>1. Fecha de transición = inicio del período comparativo<br>2. Balance de apertura con NIIF PYMES<br>3. Aplicar retroactivamente (con exenciones opcionales)<br>4. Revelar conciliación patrimonial y resultados",
+    "obligacion publica": "Tienen <strong>Obligación Pública</strong> de rendir cuentas: bancos, cooperativas de ahorro y crédito, aseguradoras, fondos de pensiones y empresas con valores cotizados. Estas entidades deben usar NIIF completas, NO NIIF para PYMES.",
+    "costo amortizado": "<strong>Costo Amortizado (Sección 11):</strong> Importe inicial ± amortizaciones de prima/descuento (usando tasa de interés efectiva) − reembolsos de principal − deterioro. Método TIE asigna el interés uniformemente a lo largo de la vida del instrumento.",
+    "beneficios empleados": "<strong>Beneficios a Empleados (Sección 28):</strong><br>• Corto plazo: salarios, vacaciones, bonificaciones<br>• Post-empleo: aporte definido (cuota al fondo) vs beneficio definido (método unidad crédito proyectada - actuarial)<br>• Largo plazo: permisos sabáticos<br>• Terminación: indemnizaciones",
+    "ingresos contratos": "<strong>Ingresos de Contratos con Clientes (Sección 23):</strong><br>5 pasos: (1) Identificar el contrato, (2) Identificar obligaciones de desempeño, (3) Determinar el precio, (4) Asignar precio entre obligaciones, (5) Reconocer ingreso cuando se satisface la obligación.",
+    "flujo efectivo": "<strong>Flujos de Efectivo (Sección 7):</strong><br>🔵 Operación: cobros clientes, pagos proveedores/empleados, impuesto (método directo o indirecto)<br>🟡 Inversión: compra/venta PPE, inversiones<br>🟢 Financiación: préstamos, aportes capital, dividendos pagados",
+    "moneda extranjera": "<strong>Moneda Extranjera (Sección 30):</strong><br>Transacciones en ME → tipo de cambio de la fecha. Cierre: partidas monetarias al tipo de cierre; no monetarias al tipo histórico. Diferencias de cambio → resultados."
+  };
+
+  function normalize(txt) {
+    return txt.toLowerCase()
+      .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e')
+      .replace(/[íìï]/g,'i').replace(/[óòö]/g,'o')
+      .replace(/[úùü]/g,'u').replace(/ñ/g,'n')
+      .replace(/[¿¡]/g,'').trim();
+  }
+
+  function findReply(userText) {
+    var q = normalize(userText);
+    // exact match
+    if (KB[q]) return KB[q];
+    // partial match – check keywords
+    var sectionMatch = q.match(/seccion\s*(\d+)/);
+    if (sectionMatch) {
+      var key = 'seccion ' + sectionMatch[1];
+      if (KB[key]) return KB[key];
+    }
+    // keyword search
+    var pairs = Object.keys(KB).map(function(k) {
+      var words = k.split(' ');
+      var hits = words.filter(function(w) { return q.includes(w) && w.length > 3; }).length;
+      return { k: k, hits: hits };
+    }).filter(function(p) { return p.hits > 0; }).sort(function(a,b) { return b.hits - a.hits; });
+    if (pairs.length > 0) return KB[pairs[0].k];
+    // fallback
+    return 'Puedo ayudarte con cualquier sección de las <strong>NIIF para PYMES 2025</strong> (Secciones 1-35). Prueba preguntando sobre una sección específica, por ejemplo: "Sección 17", "inventarios", "arrendamientos", "impuesto diferido", "valor razonable", o "diferencia NIIF PYMES vs completas".';
+  }
+
+  var toggle = document.getElementById('niif-chat-toggle');
+  var win = document.getElementById('niif-chat-window');
+  var closeBtn = document.getElementById('niif-close-btn');
+  var input = document.getElementById('niif-chat-input');
+  var sendBtn = document.getElementById('niif-chat-send');
+  var msgs = document.getElementById('niif-chat-messages');
+  var badge = document.getElementById('niif-chat-badge');
+  var typing = document.getElementById('niif-typing');
+  var suggestions = document.querySelectorAll('.niif-suggestion');
+  var isOpen = false;
+
+  function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
+
+  function addMsg(html, isUser) {
+    var row = document.createElement('div');
+    row.className = 'niif-msg-row' + (isUser ? ' user' : '');
+    if (!isUser) {
+      var av = document.createElement('div');
+      av.className = 'niif-msg-avatar';
+      av.textContent = '📚';
+      row.appendChild(av);
+    }
+    var bubble = document.createElement('div');
+    bubble.className = 'niif-bubble ' + (isUser ? 'user' : 'bot');
+    if (isUser) bubble.textContent = html;
+    else bubble.innerHTML = html;
+    row.appendChild(bubble);
+    msgs.appendChild(row);
+    scrollBottom();
+  }
+
+  function sendMessage() {
+    var text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    badge.style.display = 'none';
+    addMsg(text, true);
+    document.getElementById('niif-chat-suggestions').style.display = 'none';
+    typing.style.display = 'flex';
+    scrollBottom();
+    setTimeout(function() {
+      typing.style.display = 'none';
+      var reply = findReply(text);
+      addMsg(reply, false);
+    }, 900 + Math.random() * 400);
+  }
+
+  function toggleChat() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      win.classList.add('open');
+      badge.style.display = 'none';
+      toggle.textContent = '';
+      toggle.innerHTML = '✕';
+      toggle.title = 'Cerrar';
+      setTimeout(function() { input.focus(); }, 300);
+    } else {
+      win.classList.remove('open');
+      toggle.innerHTML = '📚<span id="niif-chat-badge" style="display:none" class="">1</span>';
+      toggle.title = 'Asistente NIIF para PYMES';
+    }
+  }
+
+  toggle.addEventListener('click', toggleChat);
+  closeBtn.addEventListener('click', function() { if (isOpen) toggleChat(); });
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keypress', function(e) { if (e.key === 'Enter') sendMessage(); });
+  suggestions.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      input.value = btn.getAttribute('data-msg');
+      sendMessage();
+    });
+  });
+
+  // Mensaje de bienvenida
+  setTimeout(function() {
+    addMsg('¡Hola! Soy tu asistente de <strong>NIIF para PYMES 2025</strong> 📚<br>Puedo explicarte las 35 secciones de la norma, conceptos clave y diferencias con NIIF completas. ¿Sobre qué sección o concepto deseas aprender?', false);
+  }, 400);
+})();
+</script>
+<!-- ===== FIN CHAT FLOTANTE NIIF PYMES ===== -->
+
 </body>
 </html>
