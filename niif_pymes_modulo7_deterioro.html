@@ -45,4 +45,5 @@ function renderQ(){answered=false;qfeedback.textContent='Seleccione una opción.
 qnext.onclick=()=>{if(qi<qs.length-1){qi++;renderQ()}else{qbar.style.width='100%';let pct=Math.round(correct/qs.length*100);finalmsg.innerHTML=`Resultado final: <b>${pct}%</b>. ${pct>=70?'Aprobado.':'Requiere repaso.'}`;if(pct>=70)confetti();}};restartQuiz.onclick=()=>{qi=0;correct=0;finalmsg.textContent='Complete las preguntas para ver el resultado.';renderQ()};renderQ();
 function confetti(){for(let i=0;i<90;i++){const e=document.createElement('i');e.style.left=Math.random()*100+'vw';e.style.top='-20px';e.style.background=['#F4A811','#0D6B8C','#1A8A4A','#E67E22','#8E44AD'][i%5];e.style.animationDelay=Math.random()*0.5+'s';confetti.appendChild(e);setTimeout(()=>e.remove(),2100)}}
 </script>
+<script src="niif-chat-widget.js"></script>
 </body></html>
