@@ -1002,11 +1002,16 @@ requestAnimationFrame(() =>
     }
 
     tog.addEventListener('click', function () {
-      var open = win.style.display === 'flex';
-      win.style.display = open ? '' : 'flex';
-      if (!open) { if (bdg) bdg.style.display = 'none'; inp.focus(); }
+      var open = win.classList.contains('open');
+      if (open) {
+        win.classList.remove('open');
+      } else {
+        win.classList.add('open');
+        if (bdg) bdg.style.display = 'none';
+        inp.focus();
+      }
     });
-    if (cls) cls.addEventListener('click', function () { win.style.display = ''; });
+    if (cls) cls.addEventListener('click', function () { win.classList.remove('open'); });
     document.querySelectorAll('.niif-suggestion').forEach(function(b) {
       b.addEventListener('click', function() { go(b.textContent.trim()); });
     });
