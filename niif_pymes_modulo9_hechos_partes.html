@@ -34,4 +34,5 @@ function initGame(){ $('#game').innerHTML=qs.map((q,i)=>`<div class="case"><h3>$
 function submitGame(){let ok=0;qs.forEach((q,i)=>{let c=document.querySelector(`.choice.correct[data-q="${i}"]`); if(c)ok++});let pct=Math.round(ok/qs.length*100);$('#gameScore').textContent=`Puntaje final: ${ok}/${qs.length} (${pct}%). ${pct>=70?'Aprobado.':'Reforzar conceptos.'}`; if(pct>=70) confetti()}function resetGame(){initGame();$('#gameScore').textContent=''}function confetti(){for(let i=0;i<55;i++){let s=document.createElement('span');s.textContent=['✦','●','◆','★'][i%4];s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*0.8+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3000)}}
 initClass();initEventQuiz();initRel();initGame();
 </script>
+<script src="niif-chat-widget.js"></script>
 </body></html>
