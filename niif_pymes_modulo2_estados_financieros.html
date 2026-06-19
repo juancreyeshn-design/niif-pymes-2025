@@ -157,5 +157,6 @@ const questions=[
 $('#gameArea').onclick=e=>{let b=e.target.closest('.gameOpt');if(!b||answered)return;answered=true;let q=questions[gi],ok=Number(b.dataset.i)===q.ok;b.classList.add(ok?'correct':'wrong');if(ok)gs++;$('#fb').style.display='block';$('#fb').innerHTML=(ok?'Correcto. ':'Revise la clasificación. ')+'Referencia: '+q.ref;};$('#nextGame').onclick=()=>{if(!answered&&gi<questions.length)return;gi++;renderGame();};$('#resetGame').onclick=()=>{gi=0;gs=0;renderGame();};renderGame();
 function confetti(){const c=$('#confetti');c.innerHTML='';for(let i=0;i<80;i++){let el=document.createElement('i');el.style.left=Math.random()*100+'vw';el.style.top='-30px';el.style.background=["#F4A811","#0D6B8C","#C0392B","#1A8A4A","#8E44AD"][i%5];el.style.animationDelay=(Math.random()*.5)+'s';c.appendChild(el);}setTimeout(()=>c.innerHTML='',2200)}
 </script>
+<script src="niif-chat-widget.js"></script>
 </body>
 </html>
