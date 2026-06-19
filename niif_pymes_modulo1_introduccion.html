@@ -12,7 +12,7 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap">hh
 <header class="hero">
   <span class="badge">NIIF PYMES 2025 · Introducción</span>
   <h1>Módulo 1 — Introducción a las NIIF para PYMES</h1>
@@ -97,7 +97,7 @@
     <div id="simFeedback" class="feedback"></div>
     <table class="journal" aria-label="Asiento de corrección">
       <thead><tr><th>Cuenta</th><th>Debe</th><th>Haber</th><th>Efecto</th></tr></thead>
-      <tbody>
+      <tbody>h
         <tr><td class="account-gasto">3103 Resultados acumulados</td><td>L. 20,000</td><td></td><td>Disminuye patrimonio inicial por corrección retrospectiva.</td></tr>
         <tr><td class="account-activo">1201.02 Depreciación acumulada PPE</td><td></td><td>L. 20,000</td><td>Reduce el importe en libros de PPE.</td></tr>
       </tbody>
@@ -194,5 +194,5 @@ document.querySelectorAll('.dropzone').forEach(z=>{z.addEventListener('dragover'
 document.getElementById('checkDrag').onclick=()=>{let ok=true;document.querySelectorAll('.dropzone .drag-card').forEach(c=>{if(c.parentElement.dataset.type!==c.dataset.type)ok=false});let df=document.getElementById('dragFeedback');df.className=ok?'feedback ok':'feedback bad';df.innerHTML=ok?'Clasificación correcta. Fundamentales: relevancia y representación fiel. De mejora: comparabilidad, verificabilidad, oportunidad y comprensibilidad.':'Hay tarjetas en una categoría incorrecta. Revise Sección 2, párrafos 2.9 a 2.24.'};
 })();
 </script>
-</body>
+<script src="niif-chat-widget.js"></script></body>
 </html>
