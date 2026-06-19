@@ -92,5 +92,6 @@ function finishQuiz(){let pct=score/12;let f=document.getElementById('finalFb');
 function resetQuiz(){answered={};score=0;document.getElementById('score').textContent=0;document.getElementById('scoreBar').style.width='0%';document.getElementById('finalFb').textContent='';renderQuiz()}
 function confetti(){const c=document.getElementById('confetti');c.innerHTML='';for(let i=0;i<80;i++){let e=document.createElement('i');e.style.left=Math.random()*100+'%';e.style.top='-20px';e.style.background=['var(--gold)','var(--activo)','var(--patrim)','var(--ingreso)','var(--gasto)'][i%5];e.style.animationDelay=Math.random()*.5+'s';c.appendChild(e)}setTimeout(()=>c.innerHTML='',1800)}renderQuiz();
 </script>
+<script src="niif-chat-widget.js"></script>
 </body>
 </html>
