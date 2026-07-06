@@ -75,38 +75,38 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:24px}
 <section class="panel active" id="p0">
   <h2>📘 Ingresos de actividades ordinarias</h2>
   <div class="grid">
-    <div class="card"><h3>Concepto</h3><p>Los ingresos de actividades ordinarias son flujos brutos de beneficios económicos recibidos o por recibir por la entidad en el curso normal de sus operaciones.</p><p class="ref">Referencia: Sección 23, párr. 23.1–23.3</p></div>
-    <div class="card"><h3>Medición</h3><p>Se miden al valor razonable de la contraprestación recibida o por recibir. Descuentos comerciales y rebajas reducen el ingreso. Si el pago diferido contiene financiamiento significativo, se descuenta a valor presente.</p><p class="ref">Referencia: párr. 23.3–23.5</p></div>
+    <div class="card"><h3>Concepto</h3><p>Los ingresos de actividades ordinarias son incrementos en los beneficios económicos por la transferencia de bienes o servicios a clientes. La Sección 23 revisada (3ª edición) se alinea con la NIIF 15 mediante un modelo único de 5 pasos, en lugar de los antiguos criterios de riesgos y beneficios.</p><p class="ref">Referencia: Sección 23, párr. 23.1–23.3</p></div>
+    <div class="card"><h3>Medición</h3><p>El ingreso se mide por el precio de la transacción: la contraprestación que la entidad espera tener derecho a recibir a cambio de los bienes o servicios, neta de montos cobrados por cuenta de terceros. Se ajusta por descuentos, devoluciones y financiamiento significativo.</p><p class="ref">Referencia: párr. 23.3–23.5</p></div>
   </div>
   <div class="card">
-    <h3>Mapa interactivo: 5 criterios para venta de bienes</h3>
-    <p>Marque los criterios que se cumplen. El ingreso se reconoce solo si se cumplen todos.</p>
+    <h3>Mapa interactivo: modelo de 5 pasos (Sección 23 revisada)</h3>
+    <p>Marque cada paso a medida que se completa. El ingreso se reconoce al finalizar el proceso.</p>
     <div class="checklist" id="criteria">
-      <label><input type="checkbox"> Transferencia de riesgos y beneficios al comprador.</label>
-      <label><input type="checkbox"> Sin control ni gestión continua sobre los bienes.</label>
-      <label><input type="checkbox"> Importe del ingreso medible con fiabilidad.</label>
-      <label><input type="checkbox"> Probable flujo de beneficios económicos.</label>
-      <label><input type="checkbox"> Costos incurridos o por incurrir medibles con fiabilidad.</label>
+      <label><input type="checkbox"> Paso 1 — Identificar el contrato con el cliente.</label>
+      <label><input type="checkbox"> Paso 2 — Identificar las obligaciones de desempeño distintas.</label>
+      <label><input type="checkbox"> Paso 3 — Determinar el precio de la transacción.</label>
+      <label><input type="checkbox"> Paso 4 — Asignar el precio a cada obligación de desempeño.</label>
+      <label><input type="checkbox"> Paso 5 — Reconocer el ingreso cuando se transfiere el control al cliente.</label>
     </div>
     <button class="btn ingreso" onclick="evalCriteria()">Evaluar reconocimiento</button>
     <div id="criteriaResult" class="result">Resultado pendiente.</div>
   </div>
   <div class="card">
-    <h3>Servicios, intereses, regalías y dividendos</h3>
+    <h3>Momento del reconocimiento y otros ingresos</h3>
     <ul>
-      <li>Servicios: método del porcentaje de terminación, si el resultado puede estimarse con fiabilidad.</li>
-      <li>Grado de terminación: inspecciones, proporción de servicios realizados o proporción de costos incurridos.</li>
+      <li>A lo largo del tiempo: el cliente recibe y consume los beneficios simultáneamente, o el activo no tiene uso alternativo y existe derecho exigible de cobro por el trabajo completado.</li>
+      <li>En un punto determinado: si no se cumplen los criterios anteriores, el ingreso se reconoce al transferirse el control del bien o servicio.</li>
       <li>Intereses: método del interés efectivo.</li>
       <li>Regalías: base de acumulación conforme al acuerdo.</li>
-      <li>Dividendos: cuando se establece el derecho a recibirlos.</li>
+      <li>Dividendos: cuando se establece el derecho a recibirlos (tratados en la Sección 11 revisada).</li>
     </ul>
-    <p class="ref">Referencia: párr. 23.14–23.16 y 23.28–23.30</p>
+    <p class="ref">Referencia: párr. 23.8, 23.14–23.16 y 23.28–23.30</p>
   </div>
 </section>
 
 <section class="panel" id="p1">
   <h2>🔨 Contratos de construcción y servicios</h2>
-  <div class="card"><p>Los contratos de construcción requieren estimar ingresos, costos y resultado. Si el resultado puede estimarse con fiabilidad, se reconoce según avance. Si existe pérdida esperada, se reconoce inmediatamente en su totalidad.</p><p class="ref">Referencia: Sección 23, párr. 23.17–23.27</p></div>
+  <div class="card"><p>Bajo el modelo de 5 pasos, un contrato de construcción suele ser una obligación de desempeño satisfecha a lo largo del tiempo, por lo que el ingreso se reconoce según el grado de avance. Si no se cumplen esos criterios, se reconoce en un punto determinado al completar la obra. La pérdida esperada se reconoce inmediatamente en su totalidad.</p><p class="ref">Referencia: Sección 23, párr. 23.8 y 23.17–23.27</p></div>
   <div class="card">
     <h3>Simulación: bodega para Comercial del Norte, S.A.</h3>
     <div class="grid">
@@ -199,7 +199,7 @@ const tabsEl=document.getElementById('tabs');
 tabs.forEach((t,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' active':'');b.textContent=t;b.onclick=()=>showPanel(i);b.addEventListener('touchstart',()=>showPanel(i),{passive:true});tabsEl.appendChild(b)});
 function showPanel(i){document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));document.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',i===j));window.scrollTo({top:0,behavior:'smooth'});}
 function L(n){return 'L '+Math.round(n).toLocaleString('es-HN')}
-function evalCriteria(){const c=[...document.querySelectorAll('#criteria input')];const ok=c.every(x=>x.checked);document.getElementById('criteriaResult').textContent=ok?'Se reconoce el ingreso: los 5 criterios se cumplen.':'Se difiere el ingreso: falta al menos un criterio de reconocimiento.'}
+function evalCriteria(){const c=[...document.querySelectorAll('#criteria input')];const ok=c.every(x=>x.checked);document.getElementById('criteriaResult').textContent=ok?'Se reconoce el ingreso: se completaron los 5 pasos del modelo.':'Se difiere el ingreso: falta completar al menos un paso del modelo.'}
 function calcBuild(){let pct=+document.getElementById('rangeBuild').value;document.getElementById('pctText').textContent=pct+'%';document.getElementById('buildBar').style.width=pct+'%';let rev=2000000*pct/100,cost=1600000*pct/100;document.getElementById('buildRev').textContent=L(rev);document.getElementById('buildCost').textContent='('+L(cost)+')';document.getElementById('buildProfit').textContent=L(rev-cost)}
 function grantView(x){document.getElementById('grantResult').textContent=x==='A'?'Opción A: se presenta un pasivo por ingreso diferido y se reconoce L 24,000 anuales en resultados.':'Opción B: la subvención reduce el importe en libros del activo; la depreciación anual baja a L 72,000.'}
 function optionYear(y){let gasto=5000*y;document.getElementById('optionJournal').textContent=`Año ${y}\nDEBE: Gasto por remuneración      ${L(5000)}\nHABER: Reserva por opciones        ${L(5000)}\nAcumulado reconocido:              ${L(gasto)}`}
@@ -207,7 +207,7 @@ function exerciseOptions(){document.getElementById('optionJournal').textContent=
 calcBuild();
 
 const quiz=[
-{q:'Venta con riesgos y beneficios transferidos, cobro probable y costos medibles. ¿Reconoce ingreso?',a:['Sí','No'],c:0,f:'Sección 23: deben cumplirse los criterios de reconocimiento.'},
+{q:'Se identificó el contrato, la obligación de desempeño, el precio de transacción y se transfirió el control al cliente. ¿Reconoce ingreso?',a:['Sí','No'],c:0,f:'Sección 23: al completarse los 5 pasos del modelo, se reconoce el ingreso.'},
 {q:'Precio L 1,500,000 y avance 35%. ¿Ingreso?',a:['L 525,000','L 350,000','L 1,500,000','L 975,000'],c:0,f:'1,500,000 × 35% = 525,000.'},
 {q:'Contrato precio L 500,000 y costos estimados L 620,000. La pérdida esperada se reconoce:',a:['Al final','Inmediatamente','Solo si se factura','Nunca'],c:1,f:'La pérdida esperada se reconoce inmediatamente.'},
 {q:'Subvención L 90,000, vida útil 3 años, ingreso diferido anual:',a:['L 30,000','L 45,000','L 90,000','L 10,000'],c:0,f:'90,000 / 3 = 30,000.'},
