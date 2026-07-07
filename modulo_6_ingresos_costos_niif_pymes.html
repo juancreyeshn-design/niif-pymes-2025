@@ -83,12 +83,13 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:24px}
     <p>Marque cada paso a medida que se completa. El ingreso se reconoce al finalizar el proceso.</p>
     <div class="checklist" id="criteria">
       <label><input type="checkbox"> Paso 1 — Identificar el contrato con el cliente.</label>
-      <label><input type="checkbox"> Paso 2 — Identificar las obligaciones de desempeño distintas.</label>
+      <label><input type="checkbox"> Paso 2 — Identificar las promesas contenidas en el contrato.</label>
       <label><input type="checkbox"> Paso 3 — Determinar el precio de la transacción.</label>
-      <label><input type="checkbox"> Paso 4 — Asignar el precio a cada obligación de desempeño.</label>
-      <label><input type="checkbox"> Paso 5 — Reconocer el ingreso cuando se transfiere el control al cliente.</label>
+      <label><input type="checkbox"> Paso 4 — Asignar el precio de la transacción a cada promesa.</label>
+      <label><input type="checkbox"> Paso 5 — Reconocer el ingreso cuando (o a medida que) la entidad cumple una promesa.</label>
     </div>
     <button class="btn ingreso" onclick="evalCriteria()">Evaluar reconocimiento</button>
+<p class="small">Nota: la Sección 23 revisada (párr. 23.3) usa el término "promesas" para lo que la entidad se compromete a entregar al cliente, en lugar de "obligaciones de desempeño" (término de la NIIF 15 completa).</p>
     <div id="criteriaResult" class="result">Resultado pendiente.</div>
   </div>
   <div class="card">
@@ -207,7 +208,7 @@ function exerciseOptions(){document.getElementById('optionJournal').textContent=
 calcBuild();
 
 const quiz=[
-{q:'Se identificó el contrato, la obligación de desempeño, el precio de transacción y se transfirió el control al cliente. ¿Reconoce ingreso?',a:['Sí','No'],c:0,f:'Sección 23: al completarse los 5 pasos del modelo, se reconoce el ingreso.'},
+{q:'Se identificó el contrato, la promesa contenida en el contrato, el precio de la transacción y se cumplió la promesa transfiriendo el control al cliente. ¿Reconoce ingreso?',a:['Sí','No'],c:0,f:'Sección 23, párr. 23.3: al completarse los 5 pasos del modelo (contrato, promesas, precio, asignación y cumplimiento), se reconoce el ingreso.'},
 {q:'Precio L 1,500,000 y avance 35%. ¿Ingreso?',a:['L 525,000','L 350,000','L 1,500,000','L 975,000'],c:0,f:'1,500,000 × 35% = 525,000.'},
 {q:'Contrato precio L 500,000 y costos estimados L 620,000. La pérdida esperada se reconoce:',a:['Al final','Inmediatamente','Solo si se factura','Nunca'],c:1,f:'La pérdida esperada se reconoce inmediatamente.'},
 {q:'Subvención L 90,000, vida útil 3 años, ingreso diferido anual:',a:['L 30,000','L 45,000','L 90,000','L 10,000'],c:0,f:'90,000 / 3 = 30,000.'},
