@@ -125,7 +125,7 @@
     var r = await fetch("https://niif-pymes-proxy.juancreyes-hn.workers.dev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "claude-haiku-4-5", max_tokens: 600, system: SYSTEM_PROMPT, messages: hist.slice(-10) })
+      body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 600, system: SYSTEM_PROMPT, messages: hist.slice(-10) })
     });
     if (!r.ok) { var e = await r.json().catch(function(){return {};}); throw new Error(e.error ? e.error.message : "HTTP " + r.status); }
     var d = await r.json();
