@@ -114,7 +114,7 @@
     var ws = q.split(' '), best = null, sc = 0;
     for (var k in KB) {
       var kw = k.split(' '), s = 0;
-      for (var w of ws) { if (w.length > 2 && kw.includes(w)) s++; }
+      for (var w of ws) { if (w.length > 3 && kw.includes(w)) s++; }
       if (s > sc) { sc = s; best = k; }
     }
     return sc > 0 ? KB[best] : null;
